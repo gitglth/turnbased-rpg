@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>image_speed = 0;
-
+dead = 0;
 /*
 buff:
     1 - regen
@@ -250,6 +250,62 @@ else
             <kind>1</kind>
             <string>depth = -y;
 
+switch(number)
+{
+    case 1:
+        for(i = 0; i &lt; 7; i++)
+        {
+            if(InvCtrl.eq1[i, 1] != -1)
+            {
+                for(j = 0; j &lt; 6; j++)
+                {
+                    eq[i, j] = InvCtrl.eq1[i, j];
+                }
+            }
+            else eq[i, 1] = -1;
+        }
+        break;
+    case 2:
+        for(i = 0; i &lt; 7; i++)
+        {
+            if(InvCtrl.eq2[i, 1] != -1)
+            {
+                for(j = 0; j &lt; 6; j++)
+                {
+                    eq[i, j] = InvCtrl.eq2[i, j];
+                }
+            }
+            else eq[i, 1] = -1;
+        }
+        break;
+    case 3:
+        for(i = 0; i &lt; 7; i++)
+        {
+            if(InvCtrl.eq3[i, 1] != -1)
+            {
+                for(j = 0; j &lt; 6; j++)
+                {
+                    eq[i, j] = InvCtrl.eq3[i, j];
+                }
+            }
+            else eq[i, 1] = -1;
+        }
+        break;
+    case 4:
+        for(i = 0; i &lt; 7; i++)
+        {
+            if(InvCtrl.eq4[i, 1] != -1)
+            {
+                for(j = 0; j &lt; 6; j++)
+                {
+                    eq[i, j] = InvCtrl.eq4[i, j];
+                }
+            }
+            else eq[i, 1] = -1;
+        }
+        break;
+}
+
 if(hpPrevious != hp)
 {
     dn = instance_create(x, y - 96, DamageNumber);
@@ -372,7 +428,7 @@ if(Ctrl.mode==0)
         {
             direction = point_direction(x,y,mouse_x,mouse_y);
             
-            if(mouse_check_button(mb_left) &amp;&amp; Ctrl.onHud == false &amp;&amp; InvCtrl.show_char == false &amp;&amp; InvCtrl.show_inv == false)
+            if(mouse_check_button(mb_left) &amp;&amp; Ctrl.onHud == false &amp;&amp; InvCtrl.show_char == false &amp;&amp; InvCtrl.show_inv == false &amp;&amp; Ctrl.show_loot == false)
             {
                 if(place_free(x+lengthdir_x(2*maxspeed,point_direction(x,y,mouse_x,mouse_y)),y+lengthdir_y(2*maxspeed,point_direction(x,y,mouse_x,mouse_y))))
                 {
@@ -459,7 +515,35 @@ if(blend &gt; 255) blend = 255;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(!Ctrl.heroesturn) hp-=100;
+            <string>//if(!Ctrl.heroesturn) hp -= InvCtrl.action[(Ctrl.actionid), 1];;
+
+if(ActionCtrl.action[Ctrl.actionid, 6])
+{
+    if(ActionCtrl.action[Ctrl.actionid, 6] &lt;= 15)
+    {
+        for(i = 0; i &lt; 8; i++)
+        {
+            if(buff[i, 0] == 0)
+            {
+                buff[i, 0] = ActionCtrl.action[Ctrl.actionid, 6];
+                buff[i, 1] = ActionCtrl.action[Ctrl.actionid, 7];
+                break;
+            }
+        }
+    }
+    else
+    {
+        for(i = 0; i &lt; 8; i++)
+        {
+            if(debuff[i, 0] == 0)
+            {
+                debuff[i, 0] = ActionCtrl.action[Ctrl.actionid, 6];
+                debuff[i, 1] = ActionCtrl.action[Ctrl.actionid, 7];
+                break;
+            }
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -487,61 +571,49 @@ if(blend &gt; 255) blend = 255;
 
 if(battle &amp;&amp; speed == 0) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 0, 96, 48, x - 48, y - 48);
 
-if(model_dir == 0)
-{
-    //tyl
-    draw_sprite_ext(sprArm, 0, x + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]), y - 30 + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]), image_xscale, image_yscale, dir_armback, c_white, image_alpha);
-    draw_sprite_ext(sprForeArm, 0, x + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), y - 30 + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback, c_white, image_alpha);
-    draw_sprite_ext(sprHand, 0, x + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_x(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), y - 30 + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_y(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback + dir_handback, c_white, image_alpha);
-    
-    draw_sprite_ext(sprLeg, 0, x + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]), y - 30 + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]), image_xscale, image_yscale, dir_legback, c_white, image_alpha);
-    draw_sprite_ext(sprForeLeg, 0, x + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), y - 30 + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback, c_white, image_alpha);
-    draw_sprite_ext(sprFoot, 0, x + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_x(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), y - 30 + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_y(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback + dir_footback, c_white, image_alpha);
-    
-    //srodek
-    draw_sprite_ext(sprBodySide, 0, x + x_shift, y - 30 + y_shift, image_xscale, image_yscale, dir_body, c_white, image_alpha);
-    draw_sprite_ext(sprHeadSide, 0, x + x_shift + lengthdir_x(lendir_headside[0], dir_body + lendir_headside[1]), y - 30 + y_shift + lengthdir_y(lendir_headside[0], dir_body + lendir_headside[1]), image_xscale, image_yscale, dir_head, c_white, image_alpha);
-    
-    //przod
-    draw_sprite_ext(sprLeg, 0, x + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]), y - 30 + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]), image_xscale, image_yscale, dir_legfront, c_white, image_alpha);
-    draw_sprite_ext(sprForeLeg, 0, x + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), y - 30 + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront, c_white, image_alpha);
-    draw_sprite_ext(sprFoot, 0, x + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_x(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), y - 30 + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_y(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront + dir_footfront, c_white, image_alpha);
-    
-    draw_sprite_ext(sprArm, 0, x + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]), y - 30 + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]), image_xscale, image_yscale, dir_armfront, c_white, image_alpha);
-    draw_sprite_ext(sprForeArm, 0, x + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), y - 30 + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront, c_white, image_alpha);
-    draw_sprite_ext(sprHand, 0, x + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_x(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), y - 30 + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_y(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront + dir_handfront, c_white, image_alpha);
-}
-else if(model_dir == 2)
-{
-    if(!surface_exists(surf)) surf = surface_create(128, 128);
-    surface_set_target(surf);
-    draw_clear_alpha(c_black,0);
-    
-    //tyl
-    draw_sprite_ext(sprArm, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]), image_xscale, image_yscale, dir_armback, c_white, image_alpha);
-    draw_sprite_ext(sprForeArm, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback, c_white, image_alpha);
-    draw_sprite_ext(sprHand, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_x(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_y(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback + dir_handback, c_white, image_alpha);
-    
-    draw_sprite_ext(sprLeg, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]), image_xscale, image_yscale, dir_legback, c_white, image_alpha);
-    draw_sprite_ext(sprForeLeg, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback, c_white, image_alpha);
-    draw_sprite_ext(sprFoot, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_x(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_y(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback + dir_footback, c_white, image_alpha);
-    
-    //srodek
-    draw_sprite_ext(sprBodySide, 0, 64 + x_shift, 64  + y_shift, image_xscale, image_yscale, dir_body, c_white, image_alpha);
-    draw_sprite_ext(sprHeadSide, 0, 64 + x_shift + lengthdir_x(lendir_headside[0], dir_body + lendir_headside[1]), 64  + y_shift + lengthdir_y(lendir_headside[0], dir_body + lendir_headside[1]), image_xscale, image_yscale, dir_head, c_white, image_alpha);
-    
-    //przod
-    draw_sprite_ext(sprLeg, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]), image_xscale, image_yscale, dir_legfront, c_white, image_alpha);
-    draw_sprite_ext(sprForeLeg, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront, c_white, image_alpha);
-    draw_sprite_ext(sprFoot, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_x(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_y(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront + dir_footfront, c_white, image_alpha);
-    
-    draw_sprite_ext(sprArm, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]), image_xscale, image_yscale, dir_armfront, c_white, image_alpha);
-    draw_sprite_ext(sprForeArm, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront, c_white, image_alpha);
-    draw_sprite_ext(sprHand, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_x(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_y(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront + dir_handfront, c_white, image_alpha);
+if(!surface_exists(surf)) surf = surface_create(128, 128);
+surface_set_target(surf);
+draw_clear_alpha(c_black,0);
 
-    surface_reset_target();
-    draw_surface_ext(surf, x + 64, y - 94, -1, 1, 0, c_white, 1);
-}
+//tyl
+if(eq[3, 1] == -1) draw_sprite_ext(sprArm, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]), image_xscale, image_yscale, dir_armback, c_white, image_alpha);
+else draw_sprite_ext(sprEqArm, eq[3, 5], 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]), image_xscale, image_yscale, dir_armback, c_white, image_alpha);
+if(eq[3, 1] == -1) draw_sprite_ext(sprForeArm, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback, c_white, image_alpha);
+else draw_sprite_ext(sprEqForeArm, eq[3, 5], 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback, c_white, image_alpha);
+if(eq[5, 1] == -1) draw_sprite_ext(sprHand, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_x(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_y(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback + dir_handback, c_white, image_alpha);
+else draw_sprite_ext(sprEqHand, eq[5, 5], 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_x(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_y(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback + dir_handback, c_white, image_alpha);
+
+if(eq[4, 1] == -1) draw_sprite_ext(sprLeg, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]), image_xscale, image_yscale, dir_legback, c_white, image_alpha);
+else draw_sprite_ext(sprEqLeg, eq[4, 5], 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]), image_xscale, image_yscale, dir_legback, c_white, image_alpha);
+if(eq[4, 1] == -1) draw_sprite_ext(sprForeLeg, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback, c_white, image_alpha);
+else draw_sprite_ext(sprEqForeLeg, eq[4, 5], 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback, c_white, image_alpha);
+if(eq[6, 1] == -1) draw_sprite_ext(sprFoot, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_x(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_y(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback + dir_footback, c_white, image_alpha);
+else draw_sprite_ext(sprEqFoot, eq[6, 5], 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_x(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_y(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback + dir_footback, c_white, image_alpha);
+
+//srodek
+if(eq[3, 1] == -1) draw_sprite_ext(sprBodySide, 0, 64 + x_shift, 64  + y_shift, image_xscale, image_yscale, dir_body, c_white, image_alpha);
+else draw_sprite_ext(sprEqBody, eq[3, 5], 64 + x_shift, 64  + y_shift, image_xscale, image_yscale, dir_body, c_white, image_alpha);
+draw_sprite_ext(sprHeadSide, 0, 64 + x_shift + lengthdir_x(lendir_headside[0], dir_body + lendir_headside[1]), 64  + y_shift + lengthdir_y(lendir_headside[0], dir_body + lendir_headside[1]), image_xscale, image_yscale, dir_head, c_white, image_alpha);
+if(eq[2, 1] != -1) draw_sprite_ext(sprEqHead, eq[2, 5], 64 + x_shift + lengthdir_x(lendir_headside[0], dir_body + lendir_headside[1]), 64  + y_shift + lengthdir_y(lendir_headside[0], dir_body + lendir_headside[1]), image_xscale, image_yscale, dir_head, c_white, image_alpha);
+
+//przod
+if(eq[4, 1] == -1) draw_sprite_ext(sprLeg, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]), image_xscale, image_yscale, dir_legfront, c_white, image_alpha);
+else draw_sprite_ext(sprEqLeg, eq[4, 5], 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]), image_xscale, image_yscale, dir_legfront, c_white, image_alpha);
+if(eq[4, 1] == -1) draw_sprite_ext(sprForeLeg, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront, c_white, image_alpha);
+else draw_sprite_ext(sprEqForeLeg, eq[4, 5], 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront, c_white, image_alpha);
+if(eq[6, 1] == -1) draw_sprite_ext(sprFoot, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_x(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_y(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront + dir_footfront, c_white, image_alpha);
+else draw_sprite_ext(sprEqFoot, eq[6, 5], 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_x(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_y(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront + dir_footfront, c_white, image_alpha);
+
+if(eq[3, 1] == -1) draw_sprite_ext(sprArm, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]), image_xscale, image_yscale, dir_armfront, c_white, image_alpha);
+else draw_sprite_ext(sprEqArm, eq[3, 5], 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]), image_xscale, image_yscale, dir_armfront, c_white, image_alpha);
+if(eq[3, 1] == -1) draw_sprite_ext(sprForeArm, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront, c_white, image_alpha);
+else draw_sprite_ext(sprEqForeArm, eq[3, 5], 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront, c_white, image_alpha);
+if(eq[5, 1] == -1) draw_sprite_ext(sprHand, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_x(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_y(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront + dir_handfront, c_white, image_alpha);
+else draw_sprite_ext(sprEqHand, eq[5, 5], 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_x(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_y(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront + dir_handfront, c_white, image_alpha);
+
+surface_reset_target();
+if(model_dir == 0) draw_surface_ext(surf, x - 64, y - 94, 1, 1, 0, c_white, 1);
+if(model_dir == 2) draw_surface_ext(surf, x + 64, y - 94, -1, 1, 0, c_white, 1);
 
 if(battle &amp;&amp; speed == 0) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 48, 96, 48, x - 48, y);
 </string>

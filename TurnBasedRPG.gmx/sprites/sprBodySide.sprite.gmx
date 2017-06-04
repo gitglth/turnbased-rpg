@@ -21,6 +21,5 @@
   <height>28</height>
   <frames>
     <frame index="0">images\sprBodySide_0.png</frame>
-    <frame index="1">images\sprBodySide_1.png</frame>
   </frames>
 </sprite>

@@ -52,74 +52,42 @@
   </views>
   <instances>
     <instance objName="Ctrl" x="0" y="0" name="inst_8D1DA70F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Hero" x="192" y="208" name="inst_B01A12AD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="EnemySpawner" x="1152" y="688" name="inst_FC3D158D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="320" y="688" name="inst_BFE3CF4F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="960" y="704" name="inst_48918EAC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="640" y="752" name="inst_EACC08ED" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Hero" x="160" y="240" name="inst_B01A12AD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Tree" x="160" y="80" name="inst_D25FB672" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Tree" x="128" y="720" name="inst_CBA6BF74" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Tree" x="448" y="896" name="inst_5E12E4E9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="1024" y="832" name="inst_61F65EF6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="640" y="336" name="inst_FBCD7D87" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="640" y="272" name="inst_085D10B0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="768" y="336" name="inst_64142F7C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="768" y="272" name="inst_60744C0D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="896" y="336" name="inst_DA7340CB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="768" y="400" name="inst_7224A805" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="640" y="400" name="inst_E3463C76" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="640" y="464" name="inst_8C0750DB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="512" y="464" name="inst_755AC602" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="384" y="400" name="inst_6BB5DCC9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="384" y="336" name="inst_0FC971C9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="512" y="272" name="inst_FC3F0231" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="512" y="336" name="inst_36E6ACB2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="512" y="400" name="inst_ABF02380" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="768" y="464" name="inst_14941A57" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="896" y="400" name="inst_D1D27F81" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="896" y="464" name="inst_48CE8CCD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="384" y="464" name="inst_C555601A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="512" y="528" name="inst_DA0D54D2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="640" y="528" name="inst_42B8F6D0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="768" y="528" name="inst_99787BFC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="576" y="96" name="inst_BE5B8EF4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="896" y="144" name="inst_73C5B519" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Tree" x="384" y="224" name="inst_6851DF19" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="384" y="272" name="inst_8D1D1EED" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="256" y="272" name="inst_26D87EC1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="128" y="272" name="inst_78656FFE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="128" y="336" name="inst_1C8000D6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="256" y="336" name="inst_D6541E95" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="256" y="400" name="inst_FB9EEE83" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="256" y="464" name="inst_A607F569" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="256" y="528" name="inst_DD69DBB1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="384" y="528" name="inst_ADB5EB65" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="128" y="528" name="inst_9216A7DD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="128" y="464" name="inst_0EE895EA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="128" y="400" name="inst_CEFB2857" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="896" y="528" name="inst_E531109C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1024" y="528" name="inst_CA4E3876" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1152" y="528" name="inst_BD352A10" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1280" y="528" name="inst_BD5BC219" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1280" y="464" name="inst_0D990AAC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1280" y="400" name="inst_0F813CC4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1280" y="336" name="inst_8B77A822" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1280" y="272" name="inst_1348E77D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1152" y="272" name="inst_52AB1F11" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1024" y="272" name="inst_72D9B091" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="896" y="272" name="inst_AD0D60CA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1024" y="336" name="inst_06065728" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1152" y="336" name="inst_20058536" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1152" y="400" name="inst_0C0AD9E6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1152" y="464" name="inst_778DF810" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1024" y="464" name="inst_78FA4A6D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="Water" x="1024" y="400" name="inst_0922F475" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Tree" x="1312" y="384" name="inst_6F9CFA5A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Tree" x="704" y="240" name="inst_8F490A3D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Tree" x="1120" y="64" name="inst_5E4D96E3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="EnemySpawner" x="736" y="416" name="inst_58D970D6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Npc" x="544" y="608" name="inst_3001307B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Npc" x="160" y="544" name="inst_D9F7C47F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Npc" x="320" y="672" name="inst_76CDBAED" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="NoticeBoard" x="416" y="272" name="inst_FAA35FD2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="EnemySpawner" x="1920" y="224" name="inst_58A7D714" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="EnemySpawner" x="1888" y="864" name="inst_000FFBF6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="EnemySpawner" x="1536" y="1344" name="inst_B35A3CC6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="EnemySpawner" x="768" y="1136" name="inst_B2E8A972" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="" x="512" y="240" w="16" h="16" xo="0" yo="0" id="10000002" name="inst_98031627" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="" x="544" y="224" w="16" h="16" xo="0" yo="0" id="10000003" name="inst_B37D3FEB" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="" x="640" y="432" w="16" h="16" xo="0" yo="0" id="10000019" name="inst_33082DE0" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
     <tile bgName="" x="576" y="304" w="16" h="16" xo="0" yo="0" id="10000020" name="inst_70B81A99" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="288" y="352" w="400" h="200" xo="0" yo="0" id="10000023" name="inst_90BACEBC" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="64" y="288" w="400" h="200" xo="0" yo="0" id="10000024" name="inst_B8C23855" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="544" y="352" w="400" h="200" xo="0" yo="0" id="10000025" name="inst_B40AB981" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="704" y="272" w="400" h="200" xo="0" yo="0" id="10000026" name="inst_FA2A75C7" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="800" y="144" w="400" h="200" xo="0" yo="0" id="10000027" name="inst_319116FA" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="1024" y="80" w="400" h="200" xo="0" yo="0" id="10000028" name="inst_AB77D090" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="832" y="416" w="400" h="200" xo="0" yo="0" id="10000029" name="inst_75417F81" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="960" y="528" w="400" h="200" xo="0" yo="0" id="10000030" name="inst_BEB66D54" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="928" y="640" w="400" h="200" xo="0" yo="0" id="10000031" name="inst_851AA74C" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="1024" y="768" w="400" h="200" xo="0" yo="0" id="10000032" name="inst_81C6CE51" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="1280" y="128" w="400" h="200" xo="0" yo="0" id="10000033" name="inst_9C4CCDD4" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="224" y="224" w="400" h="200" xo="0" yo="0" id="10000034" name="inst_8018C91F" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="128" y="384" w="400" h="200" xo="0" yo="0" id="10000035" name="inst_8CB5D838" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
+    <tile bgName="tileDirt" x="352" y="304" w="400" h="200" xo="0" yo="0" id="10000036" name="inst_3F81B4F3" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
   </tiles>
   <PhysicsWorld>0</PhysicsWorld>
   <PhysicsWorldTop>0</PhysicsWorldTop>

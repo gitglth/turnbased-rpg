@@ -53,16 +53,33 @@ surf = surface_create(view_wview,view_hview*2);
 surface_set_target(surf);
 draw_clear_alpha(c_black,0);
 
-for(i=0;i&lt;instance_number(Tree);i++)
+for(i = 0; i &lt; instance_number(Tree); i++)
 {
-    current=instance_find(Tree,i);
+    current = instance_find(Tree,i);
     draw_sprite_ext(sprTreeS,0,current.x-view_xview,(current.y-view_yview)*2,current.scale,current.scale,90+current.dir,c_black,1);
     draw_sprite_ext(sprTreeS,0,current.x-view_xview,(current.y-view_yview)*2,current.scale,current.scale,current.dir*(-1),c_black,1);
 }
 
+for(i = 0; i &lt; instance_number(BirdShadow); i++)
+{
+    current=instance_find(BirdShadow,i);
+    draw_sprite_ext(current.sprite_index, current.image_index, current.x-view_xview, (current.y-view_yview)*2, current.image_xscale, current.image_yscale, current.direction, c_black, 1);
+}
+
+for(i = 0; i &lt; instance_number(WallWood); i++)
+{
+    current = instance_find(WallWood, i);
+    cx = current.x;
+    cy = current.y;
+    draw_triangle(cx - view_xview + 64, (cy - view_yview + 64) * 2, cx - view_xview + 64, (cy - view_yview) * 2, cx - view_xview + 128 + 64, (cy - view_yview + 128) * 2, false);
+    draw_triangle(cx - view_xview + 64, (cy - view_yview + 64) * 2, cx - view_xview + 128 + 64, (cy - view_yview + 128) * 2, cx - view_xview + 128 + 64, (cy - view_yview + 128 + 64) * 2, false);
+    draw_triangle(cx - view_xview + 64, (cy - view_yview + 64) * 2, cx - view_xview + 128 + 64, (cy - view_yview + 128 + 64) * 2, cx - view_xview + 128 - 64, (cy - view_yview + 128 + 64) * 2, false);
+    draw_triangle(cx - view_xview + 64, (cy - view_yview + 64) * 2, cx - view_xview + 128 - 64, (cy - view_yview + 128 + 64) * 2, cx - view_xview - 64, (cy - view_yview + 64) * 2, false);
+}
+
 surface_reset_target();
 
-draw_surface_ext(surf,view_xview,view_yview,1,0.5,0,image_blend, 0.1 + (1 - Ctrl.overcast)*(Ctrl.sunlight * 0.6));
+draw_surface_ext(surf,view_xview,view_yview,1,0.5,0,c_black, 0.1 + (1 - Ctrl.overcast)*(Ctrl.sunlight * 0.6));
 </string>
           </argument>
         </arguments>

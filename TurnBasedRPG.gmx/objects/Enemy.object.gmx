@@ -33,6 +33,7 @@
     debuff[i, 1] = 0;
 }
 
+blend_colour = make_colour_rgb(114, 226, 199);
 myturn = -1;
 battle = false;
 initiative = round(random(1000));
@@ -54,21 +55,141 @@ goto_y = y;
 stage = 0;
 animation_alarm = -1;
 target = 0;
+image_scale = 1;
 
-action[0, 0] = 0;
+action[0, 0] = 1;
 action[0, 1] = 120;
 action[0, 2] = 30;
 action[0, 3] = 5;
+action[0, 4] = 3;
+action[0, 5] = 0;
+action[0, 6] = 0;
 
-action[1, 0] = 0;
-action[1, 1] = 180;
-action[1, 2] = 50;
+action[1, 0] = 1;
+action[1, 1] = 10;
+action[1, 2] = 40;
 action[1, 3] = 5;
+action[1, 4] = 2;
+action[1, 5] = 0;
+action[1, 6] = 1;
+action[1, 7] = 60;
 
-action[2, 0] = 0;
+action[2, 0] = 1;
 action[2, 1] = 60;
 action[2, 2] = 20;
 action[2, 3] = 5;
+action[2, 4] = 0;
+action[2, 5] = 0;
+action[2, 6] = 0;
+
+surf = surface_create(128, 128);
+x_shift = 0;
+y_shift = 0;
+
+default_armback = 10;
+default_forearmback = 10;
+default_handback = 0;
+
+default_armfront = -10;
+default_forearmfront = 10;
+default_handfront = 0;
+
+default_legback = 0;
+default_forelegback = 0;
+default_footback = 10;
+
+default_legfront = -5;
+default_forelegfront = 0;
+default_footfront = 0;
+
+default_body = 0;
+default_head = 0;
+
+dir_armback = default_armback;
+dir_forearmback = default_forearmback;
+dir_handback = default_handback;
+dir_legback = default_legback;
+dir_forelegback = default_forelegback;
+dir_footback = default_footback;
+dir_body = default_body;
+dir_head = default_head;
+dir_legfront = default_legfront;
+dir_forelegfront = default_forelegfront;
+dir_footfront = default_footfront;
+dir_armfront = default_armfront;
+dir_forearmfront = default_forearmfront;
+dir_handfront = default_handfront;
+
+change_armback = 0;
+change_forearmback = 0;
+change_handback = 0;
+change_legback = 0;
+change_forelegback = 0;
+change_footback = 0;
+change_body = 0;
+change_head = 0;
+change_legfront = 0;
+change_forelegfront = 0;
+change_footfront = 0;
+change_armfront = 0;
+change_forearmfront = 0;
+change_handfront = 0;
+
+lendir_armback[0] = point_distance(0,0,3,-10) * image_scale;
+lendir_armback[1] = point_direction(0,0,3,-10);
+lendir_armback[2] = lendir_armback[1] + 2 * angle_difference(90,lendir_armback[1]);
+
+lendir_forearmback[0] = point_distance(0,0,-1,11) * image_scale;
+lendir_forearmback[1] = point_direction(0,0,-1,11);
+lendir_forearmback[2] = lendir_forearmback[1] + 2 * angle_difference(90,lendir_forearmback[1]);
+
+lendir_handback[0] = point_distance(0,0,0,7) * image_scale;
+lendir_handback[1] = point_direction(0,0,0,7);
+lendir_handback[2] = lendir_handback[1] + 2 * angle_difference(90,lendir_handback[1]);
+
+
+lendir_legback[0] = point_distance(0,0,4,10) * image_scale;
+lendir_legback[1] = point_direction(0,0,4,10);
+lendir_legback[2] = lendir_legback[1] + 2 * angle_difference(90,lendir_legback[1]);
+
+lendir_forelegback[0] = point_distance(0,0,0,8) * image_scale;
+lendir_forelegback[1] = point_direction(0,0,0,8);
+lendir_forelegback[2] = lendir_forelegback[1] + 2 * angle_difference(90,lendir_forelegback[1]);
+
+lendir_footback[0] = point_distance(0,0,0,8) * image_scale;
+lendir_footback[1] = point_direction(0,0,0,8);
+lendir_footback[2] = lendir_footback[1] + 2 * angle_difference(90,lendir_footback[1]);
+
+
+lendir_headside[0] = point_distance(0,0,-3,-14) * image_scale;
+lendir_headside[1] = point_direction(0,0,-3,-14);
+lendir_headside[2] = lendir_headside[1] + 2 * angle_difference(90,lendir_headside[1]);
+
+
+lendir_legfront[0] = point_distance(0,0,-2,12) * image_scale;
+lendir_legfront[1] = point_direction(0,0,-2,12);
+lendir_legfront[2] = lendir_legfront[1] + 2 * angle_difference(90,lendir_legfront[1]);
+
+lendir_forelegfront[0] = point_distance(0,0,0,8) * image_scale;
+lendir_forelegfront[1] = point_direction(0,0,0,8);
+lendir_forelegfront[2] = lendir_forelegfront[1] + 2 * angle_difference(90,lendir_forelegfront[1]);
+
+lendir_footfront[0] = point_distance(0,0,0,8) * image_scale;
+lendir_footfront[1] = point_direction(0,0,0,8);
+lendir_footfront[2] = lendir_footfront[1] + 2 * angle_difference(90,lendir_footfront[1]);
+
+
+lendir_armfront[0] = point_distance(0,0,-5,-10) * image_scale;
+lendir_armfront[1] = point_direction(0,0,-5,-10);
+lendir_armfront[2] = lendir_armfront[1] + 2 * angle_difference(90,lendir_armfront[1]);
+
+lendir_forearmfront[0] = point_distance(0,0,-1,11) * image_scale;
+lendir_forearmfront[1] = point_direction(0,0,-1,11);
+lendir_forearmfront[2] = lendir_forearmfront[1] + 2 * angle_difference(90,lendir_forearmfront[1]);
+
+lendir_handfront[0] = point_distance(0,0,0,7) * image_scale;
+lendir_handfront[1] = point_direction(0,0,0,7);
+lendir_handfront[2] = lendir_handfront[1] + 2 * angle_difference(90,lendir_handfront[1]);
 </string>
           </argument>
         </arguments>
@@ -91,13 +212,13 @@ action[2, 3] = 5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>goto_x = (link).x - 250 + random(500);
-goto_y = (link).y + (-sqrt(62500 - ((link).x-goto_x)*((link).x-goto_x)) + random(2*sqrt(62500 - ((link).x-goto_x)*((link).x-goto_x))))/2;
+            <string>goto_x = x_origin - 250 + random(500);
+goto_y = y_origin + (-sqrt(62500 - (x_origin-goto_x)*(x_origin-goto_x)) + random(2*sqrt(62500 - (x_origin-goto_x)*(x_origin-goto_x))))/2;
 
 while(!place_free(goto_x,goto_y))
 {
-    goto_x = (link).x - 250 + random(500);
-    goto_y = (link).y + (-sqrt(62500 - ((link).x-goto_x)*((link).x-goto_x)) + random(2*sqrt(62500 - ((link).x-goto_x)*((link).x-goto_x))))/2;
+    goto_x = x_origin - 250 + random(500);
+    goto_y = y_origin + (-sqrt(62500 - (x_origin-goto_x)*(x_origin-goto_x)) + random(2*sqrt(62500 - (x_origin-goto_x)*(x_origin-goto_x))))/2;
 }
 </string>
           </argument>
@@ -175,11 +296,19 @@ if(hpPrevious != hp)
 {
     dn = instance_create(x, y - 96, DamageNumber);
     dn.damage = hpPrevious - hp;
+    
+    if(hp &lt;= 0)
+    {
+        dead = 1;
+    }
 }
 
 hpPrevious = hp;
 
 maxspeed=3*(1/2+abs(cos(degtorad(point_direction(x,y,goto_x,goto_y))))*1/2);
+
+if(direction &gt; 90 &amp;&amp; direction &lt; 270) model_dir = 2;
+else model_dir = 0;
 
 if(Ctrl.mode == 0 &amp;&amp; dead == 0)
 {
@@ -205,7 +334,79 @@ else
     alarm[2] = -1;
 }
 
-if(animation_alarm &gt; -1) animation_alarm --;
+if(speed &gt; 0 &amp;&amp; !timeline_running)
+{
+    timeline_index = animRun;
+    timeline_position = 0;
+    timeline_speed = 2;
+    timeline_loop = false;
+    timeline_running = true;
+}
+
+if(!timeline_running)
+{
+    dir_armback = default_armback;
+    dir_forearmback = default_forearmback;
+    dir_handback = default_handback;
+    dir_legback = default_legback;
+    dir_forelegback = default_forelegback;
+    dir_footback = default_footback;
+    dir_body = default_body;
+    dir_head = default_head;
+    dir_legfront = default_legfront;
+    dir_forelegfront = default_forelegfront;
+    dir_footfront = default_footfront;
+    dir_armfront = default_armfront;
+    dir_forearmfront = default_forearmfront;
+    dir_handfront = default_handfront;
+    
+    change_armback = 0;
+    change_forearmback = 0;
+    change_handback = 0;
+    change_legback = 0;
+    change_forelegback = 0;
+    change_footback = 0;
+    change_body = 0;
+    change_head = 0;
+    change_legfront = 0;
+    change_forelegfront = 0;
+    change_footfront = 0;
+    change_armfront = 0;
+    change_forearmfront = 0;
+    change_handfront = 0;
+}
+
+if(change_legback != 0) dir_legback += change_legback * timeline_speed;
+if(change_forelegback != 0) dir_forelegback += change_forelegback * timeline_speed;
+if(change_footback != 0) dir_footback += change_footback * timeline_speed;
+
+if(change_legfront != 0) dir_legfront += change_legfront * timeline_speed;
+if(change_forelegfront != 0) dir_forelegfront += change_forelegfront * timeline_speed;
+if(change_footfront != 0) dir_footfront += change_footfront * timeline_speed;
+
+if(change_armback != 0) dir_armback += change_armback * timeline_speed;
+if(change_forearmback != 0) dir_forearmback += change_forearmback * timeline_speed;
+if(change_handback != 0) dir_handback += change_handback * timeline_speed;
+
+if(change_armfront != 0) dir_armfront += change_armfront * timeline_speed;
+if(change_forearmfront != 0) dir_forearmfront += change_forearmfront * timeline_speed;
+if(change_handfront != 0) dir_handfront += change_handfront * timeline_speed;
+
+if(change_body != 0) dir_body += change_body * timeline_speed;
+if(change_head != 0) dir_head += change_head * timeline_speed;
+
+if(animation_alarm &gt; -1)
+{
+    if(!timeline_running)
+    {
+        timeline_index = animAttack2h;
+        timeline_position = 0;
+        timeline_speed = 1;
+        timeline_loop = false;
+        timeline_running = true;
+    }
+    animation_alarm --;
+}
 
 if(Ctrl.mode == 1 &amp;&amp; Ctrl.hexcomplete &amp;&amp; animation_alarm &lt;= 0)
 {
@@ -231,7 +432,7 @@ if(Ctrl.mode == 1 &amp;&amp; Ctrl.hexcomplete &amp;&amp; animation_alarm &lt;= 0
                 }
                 
                 direction = point_direction(x, y, moveHex.x, moveHex.y);
-                if(point_distance(x, y, moveHex.x, moveHex.y) &gt; maxspeed) move_towards_point(moveHex.x, moveHex.y, maxspeed);
+                if(point_distance(x, y, moveHex.x, moveHex.y) &gt; maxspeed) speed = maxspeed; //move_towards_point(moveHex.x, moveHex.y, maxspeed);
                 else
                 {
                     x = moveHex.x;
@@ -253,7 +454,15 @@ if(Ctrl.mode == 1 &amp;&amp; Ctrl.hexcomplete &amp;&amp; animation_alarm &lt;= 0
             else if(stage == 1) //losowanie akcji do wykonania
             {
                 //show_message("1 - losowanie akcji");
-                actionid = irandom(2);
+                for(i = 0; i &lt; 3; i++)
+                {
+                    if(action[i, 5] == 0)
+                    {
+                        actionid = i;
+                        break;
+                    }
+                }
+                
                 if(action[actionid, 2] &gt; ap)
                 {
                     stage = 0; 
@@ -445,7 +654,7 @@ if(Ctrl.mode == 1 &amp;&amp; Ctrl.hexcomplete &amp;&amp; animation_alarm &lt;= 0
                         else
                         {
                             //czekaj
-                            if(animation_alarm &lt; 0) animation_alarm = room_speed;
+                            if(animation_alarm &lt; 0) animation_alarm = timeline_max_moment(animAttack2h);
                         }
                     }
                 }
@@ -585,11 +794,40 @@ if(Ctrl.mode == 1 &amp;&amp; Ctrl.hexcomplete &amp;&amp; animation_alarm &lt;= 0
                     if(ap &gt;= apcost)
                     {
                         direction = point_direction(x, y, target.x, target.y);
-                        if(animation_alarm &lt; 0) animation_alarm = room_speed;
+                        if(animation_alarm &lt; 0) animation_alarm = timeline_max_moment(animAttack2h);
                         //wykonaj akcje
-                        effect_create_above(ef_explosion, target.x, target.y, 0, c_white);
+                        //effect_create_above(ef_explosion, target.x, target.y, 0, c_white);
                         ap -= apcost;
                         target.hp -= action[actionid, 1];
+                        
+                        if(action[actionid, 6])
+                        {
+                            if(action[actionid, 6] &lt;= 15)
+                            {
+                                for(i = 0; i &lt; 8; i++)
+                                {
+                                    if(target.buff[i, 0] == 0)
+                                    {
+                                        target.buff[i, 0] = action[actionid, 6];
+                                        target.buff[i, 1] = action[actionid, 7];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for(i = 0; i &lt; 8; i++)
+                                {
+                                    if(target.debuff[i, 0] == 0)
+                                    {
+                                        target.debuff[i, 0] = action[actionid, 6];
+                                        target.debuff[i, 1] = action[actionid, 7];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        action[actionid, 5] = action[actionid, 4];
                         stage = 0;
                     }
                     else
@@ -607,11 +845,40 @@ if(Ctrl.mode == 1 &amp;&amp; Ctrl.hexcomplete &amp;&amp; animation_alarm &lt;= 0
                     if(ap &gt;= apcost)
                     {
                         direction = point_direction(x, y, target.x, target.y);
-                        if(animation_alarm &lt; 0) animation_alarm = room_speed;
+                        if(animation_alarm &lt; 0) animation_alarm = timeline_max_moment(animAttack2h);
                         //wykonaj akcje
-                        effect_create_above(ef_explosion, target.x, target.y, 0, c_white);
+                        //effect_create_above(ef_explosion, target.x, target.y, 0, c_white);
                         ap -= apcost;
                         target.hp -= action[actionid, 1];
+                        
+                        if(action[actionid, 6])
+                        {
+                            if(action[actionid, 6] &lt;= 15)
+                            {
+                                for(i = 0; i &lt; 8; i++)
+                                {
+                                    if(target.buff[i, 0] == 0)
+                                    {
+                                        target.buff[i, 0] = action[actionid, 6];
+                                        target.buff[i, 1] = action[actionid, 7];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for(i = 0; i &lt; 8; i++)
+                                {
+                                    if(target.debuff[i, 0] == 0)
+                                    {
+                                        target.debuff[i, 0] = action[actionid, 6];
+                                        target.debuff[i, 1] = action[actionid, 7];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        action[actionid, 5] = action[actionid, 4];
                         stage = 0;
                     }
                 }
@@ -689,7 +956,35 @@ else if(hp&gt;0 &amp;&amp; image_angle&gt;0) image_angle-=5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(Ctrl.heroesturn) hp -= 100;
+            <string>if(Ctrl.heroesturn) hp -= (ActionCtrl.action[(Ctrl.actionid), 1]) * (InvCtrl.hero[(InvCtrl.current_eq), 0]);
+
+if(ActionCtrl.action[Ctrl.actionid, 6])
+{
+    if(ActionCtrl.action[Ctrl.actionid, 6] &lt;= 15)
+    {
+        for(i = 0; i &lt; 8; i++)
+        {
+            if(buff[i, 0] == 0)
+            {
+                buff[i, 0] = ActionCtrl.action[Ctrl.actionid, 6];
+                buff[i, 1] = (ActionCtrl.action[Ctrl.actionid, 7]) * (InvCtrl.hero[(InvCtrl.current_eq), 3]);
+                break;
+            }
+        }
+    }
+    else
+    {
+        for(i = 0; i &lt; 8; i++)
+        {
+            if(debuff[i, 0] == 0)
+            {
+                debuff[i, 0] = ActionCtrl.action[Ctrl.actionid, 6];
+                debuff[i, 1] = ActionCtrl.action[Ctrl.actionid, 7];
+                break;
+            }
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -758,7 +1053,64 @@ else if(hp&gt;0 &amp;&amp; image_angle&gt;0) image_angle-=5;
 
 if(battle &amp;&amp; speed == 0) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 0, 96, 48, x - 48, y - 48);
 
-draw_sprite_ext(sprite_index,image_index,x,y,1,1,image_angle,make_colour_rgb(blend,blend,blend),image_alpha);
+if(model_dir == 0)
+{
+    //tyl
+    draw_sprite_ext(sprArm, 0, x + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]), y - 30 + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]), image_xscale, image_yscale, dir_armback, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeArm, 0, x + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), y - 30 + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback, blend_colour, image_alpha);
+    draw_sprite_ext(sprHand, 0, x + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_x(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), y - 30 + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_y(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback + dir_handback, blend_colour, image_alpha);
+    
+    draw_sprite_ext(sprLeg, 0, x + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]), y - 30 + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]), image_xscale, image_yscale, dir_legback, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeLeg, 0, x + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), y - 30 + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback, blend_colour, image_alpha);
+    draw_sprite_ext(sprFoot, 0, x + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_x(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), y - 30 + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_y(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback + dir_footback, blend_colour, image_alpha);
+    
+    //srodek
+    draw_sprite_ext(sprBodySide, 0, x + x_shift, y - 30 + y_shift, image_xscale, image_yscale, dir_body, blend_colour, image_alpha);
+    draw_sprite_ext(sprHeadSide, 0, x + x_shift + lengthdir_x(lendir_headside[0], dir_body + lendir_headside[1]), y - 30 + y_shift + lengthdir_y(lendir_headside[0], dir_body + lendir_headside[1]), image_xscale, image_yscale, dir_head, blend_colour, image_alpha);
+    
+    //przod
+    draw_sprite_ext(sprLeg, 0, x + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]), y - 30 + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]), image_xscale, image_yscale, dir_legfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeLeg, 0, x + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), y - 30 + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprFoot, 0, x + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_x(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), y - 30 + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_y(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront + dir_footfront, blend_colour, image_alpha);
+    
+    draw_sprite_ext(sprArm, 0, x + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]), y - 30 + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]), image_xscale, image_yscale, dir_armfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeArm, 0, x + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), y - 30 + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprHand, 0, x + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_x(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), y - 30 + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_y(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront + dir_handfront, blend_colour, image_alpha);
+}
+else if(model_dir == 2)
+{
+    if(!surface_exists(surf)) surf = surface_create(128, 128);
+    surface_set_target(surf);
+    draw_clear_alpha(c_black,0);
+    
+    //tyl
+    draw_sprite_ext(sprArm, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]), image_xscale, image_yscale, dir_armback, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeArm, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback, blend_colour, image_alpha);
+    draw_sprite_ext(sprHand, 0, 64 + x_shift + lengthdir_x(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_x(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_x(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), 64  + y_shift + lengthdir_y(lendir_armback[0], dir_body + lendir_armback[1]) + lengthdir_y(lendir_forearmback[0], dir_body + dir_armback + lendir_forearmback[1]) + lengthdir_y(lendir_handback[0], dir_body + dir_armback + dir_forearmback + lendir_handback[1]), image_xscale, image_yscale, dir_armback + dir_forearmback + dir_handback, blend_colour, image_alpha);
+    
+    draw_sprite_ext(sprLeg, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]), image_xscale, image_yscale, dir_legback, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeLeg, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback, blend_colour, image_alpha);
+    draw_sprite_ext(sprFoot, 0, 64 + x_shift + lengthdir_x(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_x(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_x(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), 64  + y_shift + lengthdir_y(lendir_legback[0], dir_body + lendir_legback[1]) + lengthdir_y(lendir_forelegback[0], dir_body + dir_legback + lendir_forelegback[1]) + lengthdir_y(lendir_footback[0], dir_body + dir_legback + dir_forelegback + lendir_footback[1]), image_xscale, image_yscale, dir_legback + dir_forelegback + dir_footback, blend_colour, image_alpha);
+    
+    //srodek
+    draw_sprite_ext(sprBodySide, 0, 64 + x_shift, 64  + y_shift, image_xscale, image_yscale, dir_body, blend_colour, image_alpha);
+    draw_sprite_ext(sprHeadSide, 0, 64 + x_shift + lengthdir_x(lendir_headside[0], dir_body + lendir_headside[1]), 64  + y_shift + lengthdir_y(lendir_headside[0], dir_body + lendir_headside[1]), image_xscale, image_yscale, dir_head, blend_colour, image_alpha);
+    
+    //przod
+    draw_sprite_ext(sprLeg, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]), image_xscale, image_yscale, dir_legfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeLeg, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprFoot, 0, 64 + x_shift + lengthdir_x(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_x(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_x(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), 64  + y_shift + lengthdir_y(lendir_legfront[0], dir_body + lendir_legfront[1]) + lengthdir_y(lendir_forelegfront[0], dir_body + dir_legfront + lendir_forelegfront[1]) + lengthdir_y(lendir_footfront[0], dir_body + dir_legfront + dir_forelegfront + lendir_footfront[1]), image_xscale, image_yscale, dir_legfront + dir_forelegfront + dir_footfront, blend_colour, image_alpha);
+    
+    draw_sprite_ext(sprArm, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]), image_xscale, image_yscale, dir_armfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprForeArm, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront, blend_colour, image_alpha);
+    draw_sprite_ext(sprHand, 0, 64 + x_shift + lengthdir_x(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_x(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_x(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), 64  + y_shift + lengthdir_y(lendir_armfront[0], dir_body + lendir_armfront[1]) + lengthdir_y(lendir_forearmfront[0], dir_body + dir_armfront + lendir_forearmfront[1]) + lengthdir_y(lendir_handfront[0], dir_body + dir_armfront + dir_forearmfront + lendir_handfront[1]), image_xscale, image_yscale, dir_armfront + dir_forearmfront + dir_handfront, blend_colour, image_alpha);
+
+    surface_reset_target();
+    draw_surface_ext(surf, x + 64, y - 94, -1, 1, 0, c_white, 1);
+}
+
+
+//draw_sprite_ext(sprite_index,image_index,x,y,1,1,image_angle,make_colour_rgb(blend,blend,blend),image_alpha);
 
 if(battle &amp;&amp; speed == 0) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 48, 96, 48, x - 48, y);
 </string>

@@ -14,11 +14,7 @@
       <sprite>sprites\sprPlus</sprite>
     </sprites>
     <sprites name="sprBodyParts">
-      <sprite>sprites\sprHeadFront</sprite>
-      <sprite>sprites\sprHeadBack</sprite>
       <sprite>sprites\sprHeadSide</sprite>
-      <sprite>sprites\sprBodyFront</sprite>
-      <sprite>sprites\sprBodyBack</sprite>
       <sprite>sprites\sprBodySide</sprite>
       <sprite>sprites\sprArm</sprite>
       <sprite>sprites\sprForeArm</sprite>
@@ -26,6 +22,16 @@
       <sprite>sprites\sprLeg</sprite>
       <sprite>sprites\sprForeLeg</sprite>
       <sprite>sprites\sprFoot</sprite>
+    </sprites>
+    <sprites name="sprEq">
+      <sprite>sprites\sprEqHead</sprite>
+      <sprite>sprites\sprEqBody</sprite>
+      <sprite>sprites\sprEqArm</sprite>
+      <sprite>sprites\sprEqForeArm</sprite>
+      <sprite>sprites\sprEqHand</sprite>
+      <sprite>sprites\sprEqLeg</sprite>
+      <sprite>sprites\sprEqForeLeg</sprite>
+      <sprite>sprites\sprEqFoot</sprite>
     </sprites>
     <sprites name="sprGrasses">
       <sprite>sprites\sprGrass</sprite>
@@ -56,21 +62,11 @@
       <sprite>sprites\sprMarkerOmni3</sprite>
     </sprites>
     <sprites name="sprItemIcons">
-      <sprite>sprites\sprItem</sprite>
+      <sprite>sprites\sprItemIcon</sprite>
+      <sprite>sprites\sprWeaponIcon</sprite>
+      <sprite>sprites\sprArmorIcon</sprite>
       <sprite>sprites\sprLongsword</sprite>
-      <sprite>sprites\sprLongaxe</sprite>
       <sprite>sprites\sprSword</sprite>
-      <sprite>sprites\sprAxe</sprite>
-      <sprite>sprites\sprDagger</sprite>
-      <sprite>sprites\sprBow</sprite>
-      <sprite>sprites\sprCrossbow</sprite>
-      <sprite>sprites\sprPistol</sprite>
-      <sprite>sprites\sprGlaive</sprite>
-      <sprite>sprites\sprArmorHead</sprite>
-      <sprite>sprites\sprArmorChest</sprite>
-      <sprite>sprites\sprArmorPants</sprite>
-      <sprite>sprites\sprArmorGloves</sprite>
-      <sprite>sprites\sprArmorBoots</sprite>
     </sprites>
     <sprites name="sprSkillIcons">
       <sprite>sprites\sprSkillIcon</sprite>
@@ -80,6 +76,7 @@
       <sprite>sprites\sprDirWheelOver</sprite>
       <sprite>sprites\sprBar</sprite>
       <sprite>sprites\sprResourceBar</sprite>
+      <sprite>sprites\sprTracker</sprite>
     </sprites>
     <sprite>sprites\sprHero</sprite>
     <sprite>sprites\sprEnemy</sprite>
@@ -106,6 +103,15 @@
     <sprite>sprites\sprSun</sprite>
     <sprite>sprites\sprMoon</sprite>
     <sprite>sprites\sprCloud</sprite>
+    <sprite>sprites\sprClouds</sprite>
+    <sprite>sprites\sprOvercast</sprite>
+    <sprite>sprites\sprNoticeBoard</sprite>
+    <sprite>sprites\sprLootBag</sprite>
+    <sprite>sprites\sprBirdShadow</sprite>
+    <sprite>sprites\sprDoor</sprite>
+    <sprite>sprites\sprWallWood</sprite>
+    <sprite>sprites\sprWallMask</sprite>
+    <sprite>sprites\sprChest</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\backGrassGreen</background>
@@ -132,6 +138,7 @@
     <object>objects\Hero</object>
     <object>objects\Enemy</object>
     <object>objects\EnemySpawner</object>
+    <object>objects\Npc</object>
     <object>objects\Tree</object>
     <object>objects\TreeShadow</object>
     <object>objects\GrassDrawer</object>
@@ -148,6 +155,12 @@
     <object>objects\WaterSlopeShade</object>
     <object>objects\ObstacleMarker</object>
     <object>objects\DamageNumber</object>
+    <object>objects\NoticeBoard</object>
+    <object>objects\LootBag</object>
+    <object>objects\Chest</object>
+    <object>objects\BirdShadow</object>
+    <object>objects\Door</object>
+    <object>objects\WallWood</object>
   </objects>
   <timelines name="timelines">
     <timeline>timelines\animRun</timeline>

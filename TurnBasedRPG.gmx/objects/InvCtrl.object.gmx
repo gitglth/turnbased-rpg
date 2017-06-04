@@ -42,6 +42,24 @@ dirwheel_mouseover = false;
 sprite_index = sprBlank;
 check_eq = true;
 
+gold = 0;
+xp = 0;
+lvl = 1;
+xp_to_lvl = 100 + ((lvl - 1) * 50);
+stats_to_spend = 0;
+
+for(i = 0; i &lt; 8; i++)
+{
+    for(j = 0; j &lt; 4; j++)
+    {
+        quest[i, j] = 0;
+    }
+    quest_tracking[i] = false;
+}
+
+quests = 0;
+show_quests = false;
+
 /*
 
 0 - imie
@@ -50,6 +68,7 @@ check_eq = true;
 3 - obrazenia DoT
 4 - zywotnosc +maxHP
 5 - zrecznosc +maxAP
+6 - inicjatywa
 
 1 pkt = 10%
 
@@ -61,6 +80,7 @@ heroBase[0, 2] = 10 + irandom(10);
 heroBase[0, 3] = 10 + irandom(10);
 heroBase[0, 4] = 10 + irandom(10);
 heroBase[0, 5] = 10 + irandom(10);
+heroBase[0, 6] = 10 + irandom(10);
 
 heroBase[1, 0] = "John Wick";
 heroBase[1, 1] = 10 + irandom(10);
@@ -68,6 +88,7 @@ heroBase[1, 2] = 10 + irandom(10);
 heroBase[1, 3] = 10 + irandom(10);
 heroBase[1, 4] = 10 + irandom(10);
 heroBase[1, 5] = 10 + irandom(10);
+heroBase[1, 6] = 10 + irandom(10);
 
 heroBase[2, 0] = "Janusz";
 heroBase[2, 1] = 10 + irandom(10);
@@ -75,6 +96,7 @@ heroBase[2, 2] = 10 + irandom(10);
 heroBase[2, 3] = 10 + irandom(10);
 heroBase[2, 4] = 10 + irandom(10);
 heroBase[2, 5] = 10 + irandom(10);
+heroBase[2, 6] = 10 + irandom(10);
 
 heroBase[3, 0] = "Jurand";
 heroBase[3, 1] = 10 + irandom(10);
@@ -82,6 +104,7 @@ heroBase[3, 2] = 10 + irandom(10);
 heroBase[3, 3] = 10 + irandom(10);
 heroBase[3, 4] = 10 + irandom(10);
 heroBase[3, 5] = 10 + irandom(10);
+heroBase[3, 6] = 10 + irandom(10);
 
 /*
 
@@ -224,35 +247,35 @@ eq3[2, 1] = 21;
 eq3[2, 2] = 11;
 eq3[2, 3] = 13;
 eq3[2, 4] = 0.02;
-eq3[2, 5] = 0;
+eq3[2, 5] = 2;
 
 eq3[3, 0] = "Kurtka bohatera";
 eq3[3, 1] = 22;
 eq3[3, 2] = 23;
 eq3[3, 3] = 28;
 eq3[3, 4] = 0.06;
-eq3[3, 5] = 0;
+eq3[3, 5] = 2;
 
 eq3[4, 0] = "Spodnie bohatera";
 eq3[4, 1] = 23;
 eq3[4, 2] = 20;
 eq3[4, 3] = 24;
 eq3[4, 4] = 0.05;
-eq3[4, 5] = 0;
+eq3[4, 5] = 2;
 
 eq3[5, 0] = "Rekawice bohatera";
 eq3[5, 1] = 24;
 eq3[5, 2] = 11;
 eq3[5, 3] = 19;
 eq3[5, 4] = 0.02;
-eq3[5, 5] = 0;
+eq3[5, 5] = 2;
 
 eq3[6, 0] = "Buty bohatera";
 eq3[6, 1] = 25;
 eq3[6, 2] = 14;
 eq3[6, 3] = 14;
 eq3[6, 4] = 0.03;
-eq3[6, 5] = 0;
+eq3[6, 5] = 2;
 
 
 eq4[0, 0] = "Ostrze szpiega";
@@ -267,35 +290,35 @@ eq4[2, 1] = 21;
 eq4[2, 2] = 11;
 eq4[2, 3] = 13;
 eq4[2, 4] = 0.02;
-eq4[2, 5] = 0;
+eq4[2, 5] = 1;
 
 eq4[3, 0] = "Kurtka szpiega";
 eq4[3, 1] = 22;
 eq4[3, 2] = 23;
 eq4[3, 3] = 28;
 eq4[3, 4] = 0.06;
-eq4[3, 5] = 0;
+eq4[3, 5] = 1;
 
 eq4[4, 0] = "Spodnie szpiega";
 eq4[4, 1] = 23;
 eq4[4, 2] = 20;
 eq4[4, 3] = 24;
 eq4[4, 4] = 0.05;
-eq4[4, 5] = 0;
+eq4[4, 5] = 1;
 
 eq4[5, 0] = "Rekawice szpiega";
 eq4[5, 1] = 24;
 eq4[5, 2] = 11;
 eq4[5, 3] = 19;
 eq4[5, 4] = 0.02;
-eq4[5, 5] = 0;
+eq4[5, 5] = 1;
 
 eq4[6, 0] = "Buty szpiega";
 eq4[6, 1] = 25;
 eq4[6, 2] = 14;
 eq4[6, 3] = 14;
 eq4[6, 4] = 0.03;
-eq4[6, 5] = 0;
+eq4[6, 5] = 1;
 
 
 for(i = 0; i &lt; 7; i++)
@@ -424,9 +447,9 @@ for(i = 0; i &lt; 24; i ++)
 
 for(i = 0; i &lt; 4; i++)
 {
-    for(j = 0; j &lt; 10; j++)
+    for(j = 5; j &lt; 10; j++)
     {
-        action[i, j] = irandom(25);
+        action[i, j] = -1;
     }
 }
 
@@ -462,7 +485,14 @@ for(i = 0; i &lt; 25; i++)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>if(xp &gt;= xp_to_lvl)
+{
+    xp -= xp_to_lvl;
+    lvl ++;
+    stats_to_spend += 3;
+    xp_to_lvl = 100 + ((lvl - 1) * 50);
+}
+
 /*
 1 - miecz 2h
 2 - topor 2h
@@ -828,6 +858,7 @@ if(check_eq)
     6 - zrecznosc +maxAP
     7 - pancerz
     8 - ochrona przed DoT
+    9 - inicjatywa
     
     1 pkt = 10%
     */
@@ -859,6 +890,7 @@ if(check_eq)
     if(eq1[4, 1] != -1) hero[0, 8] += eq1[4, 3];
     if(eq1[5, 1] != -1) hero[0, 8] += eq1[5, 3];
     if(eq1[6, 1] != -1) hero[0, 8] += eq1[6, 3];
+    hero[0, 9] = heroBase[0, 6];
     
     if(eq2[0, 1] != -1) hero[1, 0] = round(eq2[0, 2] * (1 + heroBase[1, 1]/10));
     else hero[1, 0] = 0;
@@ -887,6 +919,7 @@ if(check_eq)
     if(eq2[4, 1] != -1) hero[1, 8] += eq2[4, 3];
     if(eq2[5, 1] != -1) hero[1, 8] += eq2[5, 3];
     if(eq2[6, 1] != -1) hero[1, 8] += eq2[6, 3];
+    hero[1, 9] = heroBase[1, 6];
     
     if(eq3[0, 1] != -1) hero[2, 0] = round(eq3[0, 2] * (1 + heroBase[2, 1]/10));
     else hero[2, 0] = 0;
@@ -915,6 +948,7 @@ if(check_eq)
     if(eq3[4, 1] != -1) hero[2, 8] += eq3[4, 3];
     if(eq3[5, 1] != -1) hero[2, 8] += eq3[5, 3];
     if(eq3[6, 1] != -1) hero[2, 8] += eq3[6, 3];
+    hero[2, 9] = heroBase[2, 6];
     
     if(eq4[0, 1] != -1) hero[3, 0] = round(eq4[0, 2] * (1 + heroBase[3, 1]/10));
     else hero[3, 0] = 0;
@@ -943,6 +977,7 @@ if(check_eq)
     if(eq4[4, 1] != -1) hero[3, 8] += eq4[4, 3];
     if(eq4[5, 1] != -1) hero[3, 8] += eq4[5, 3];
     if(eq4[6, 1] != -1) hero[3, 8] += eq4[6, 3];
+    hero[3, 9] = heroBase[3, 6];
     
     check_eq = false;
 }
@@ -1191,42 +1226,64 @@ if(show_inv)
                 {
                     if(grabbed_item[1] != -1)
                     {
-                        inv_temp[0] = inv[i, 0];
-                        inv_temp[1] = inv[i, 1];
-                        inv_temp[2] = inv[i, 2];
-                        inv_temp[3] = inv[i, 3];
-                        inv_temp[4] = inv[i, 4];
-                        inv_temp[5] = inv[i, 5];
+                        if(inv[i, 1] != -1)
+                        {
+                            inv_temp[0] = inv[i, 0];
+                            inv_temp[1] = inv[i, 1];
+                            inv_temp[2] = inv[i, 2];
+                            inv_temp[3] = inv[i, 3];
+                            inv_temp[4] = inv[i, 4];
+                            inv_temp[5] = inv[i, 5];
                         
-                        inv[i, 0] = grabbed_item[0];
-                        inv[i, 1] = grabbed_item[1];
-                        inv[i, 2] = grabbed_item[2];
-                        inv[i, 3] = grabbed_item[3];
-                        inv[i, 4] = grabbed_item[4];
-                        inv[i, 5] = grabbed_item[5];
-                        
-                        grabbed_item[0] = inv_temp[0];
-                        grabbed_item[1] = inv_temp[1];
-                        grabbed_item[2] = inv_temp[2];
-                        grabbed_item[3] = inv_temp[3];
-                        grabbed_item[4] = inv_temp[4];
-                        grabbed_item[5] = inv_temp[5];
+                            inv[i, 0] = grabbed_item[0];
+                            inv[i, 1] = grabbed_item[1];
+                            inv[i, 2] = grabbed_item[2];
+                            inv[i, 3] = grabbed_item[3];
+                            inv[i, 4] = grabbed_item[4];
+                            inv[i, 5] = grabbed_item[5];
+                            
+                            grabbed_item[0] = inv_temp[0];
+                            grabbed_item[1] = inv_temp[1];
+                            grabbed_item[2] = inv_temp[2];
+                            grabbed_item[3] = inv_temp[3];
+                            grabbed_item[4] = inv_temp[4];
+                            grabbed_item[5] = inv_temp[5];
+                        }
+                        else
+                        {
+                            inv[i, 0] = grabbed_item[0];
+                            inv[i, 1] = grabbed_item[1];
+                            inv[i, 2] = grabbed_item[2];
+                            inv[i, 3] = grabbed_item[3];
+                            inv[i, 4] = grabbed_item[4];
+                            inv[i, 5] = grabbed_item[5];
+                            
+                            grabbed_item[0] = 0;
+                            grabbed_item[1] = -1;
+                            grabbed_item[2] = 0;
+                            grabbed_item[3] = 0;
+                            grabbed_item[4] = 0;
+                            grabbed_item[5] = 0;
+                        }
                     }
                     else
                     {
-                        grabbed_item[0] = inv[i, 0];
-                        grabbed_item[1] = inv[i, 1];
-                        grabbed_item[2] = inv[i, 2];
-                        grabbed_item[3] = inv[i, 3];
-                        grabbed_item[4] = inv[i, 4];
-                        grabbed_item[5] = inv[i, 5];
-                        
-                        inv[i, 0] = 0;
-                        inv[i, 1] = -1;
-                        inv[i, 2] = 0;
-                        inv[i, 3] = 0;
-                        inv[i, 4] = 0;
-                        inv[i, 5] = 0;
+                        if(inv[i, 1] != -1)
+                        {
+                            grabbed_item[0] = inv[i, 0];
+                            grabbed_item[1] = inv[i, 1];
+                            grabbed_item[2] = inv[i, 2];
+                            grabbed_item[3] = inv[i, 3];
+                            grabbed_item[4] = inv[i, 4];
+                            grabbed_item[5] = inv[i, 5];
+                            
+                            inv[i, 0] = 0;
+                            inv[i, 1] = -1;
+                            inv[i, 2] = 0;
+                            inv[i, 3] = 0;
+                            inv[i, 4] = 0;
+                            inv[i, 5] = 0;
+                        }
                     }
                 }
                 else if!(mouse_x &gt;= view_xview + view_wview / 2 - 278 &amp;&amp; mouse_x &lt;= view_xview + view_wview /2 + 278)
@@ -1238,6 +1295,7 @@ if(show_inv)
                     }
                 }
             }
+            check_eq = true;
         }
     }
 }
@@ -1348,6 +1406,36 @@ if(show_char)
 }
 else grabbed_skill = 0;
 
+if(show_quests)
+{
+    if(mouse_x &gt;= view_xview + view_wview - 100 &amp;&amp; mouse_x &lt;= view_xview + view_wview - 84)
+    {
+        for(i = 0; i &lt; quests; i++)
+        {
+            if(mouse_y &gt;= view_yview + 136 + (i * 36) &amp;&amp; mouse_y &lt;= view_yview + 152 + (i * 36)) quest_tracking_mouseover[i] = true;
+            else quest_tracking_mouseover[i] = false;
+        }
+    }
+    else
+    {
+        for(i = 0; i &lt; quests; i++)
+        {
+            quest_tracking_mouseover[i] = false;
+        }
+    }
+    
+    if(mouse_check_button_pressed(mb_left))
+    {
+        for(i = 0; i &lt; quests; i++)
+        {
+            if(quest_tracking_mouseover[i])
+            {
+                quest_tracking[i] = !quest_tracking[i];
+            }
+        }
+    }
+}
+
 if(Ctrl.mode == 1)
 {
     if(mouse_y &gt;= view_yview + view_hview - 56 &amp;&amp; mouse_y &lt;= view_yview + view_hview - 8)
@@ -1401,70 +1489,22 @@ if(Ctrl.mode == 1)
     draw_set_alpha(0.5);
     draw_set_colour(c_black);
     draw_rectangle(view_wview / 2 - 278, view_hview - 216 - 32, view_wview /2 + 278, view_hview - 32, false);
+    draw_rectangle(view_wview / 2 + 136, view_hview - 30, view_wview / 2 + 278, view_hview - 12, false);
     draw_set_alpha(1);
-    draw_set_colour($808080);
+    draw_set_colour(c_white);
+    draw_text(view_wview / 2 + 140, view_hview - 28, "Zloto: " + string(gold));
+    draw_set_colour(c_black);
     
     for(i = 0; i &lt; 24; i ++)
     {
-        if(inv_mouseover[i])
-        {
-            draw_set_colour($BBBBBB);
-            draw_rectangle(view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)), view_wview / 2 - 270 + 68 * (i % 8) + 64, view_hview - 216 - 24 + 68 * (floor(i / 8)) + 64, false);
-            draw_set_colour($808080);
-        }
-        else
-        {
-            draw_rectangle(view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)), view_wview / 2 - 270 + 68 * (i % 8) + 64, view_hview - 216 - 24 + 68 * (floor(i / 8)) + 64, false);
-        }
-        
-        switch(inv[i, 1])
-        {
-            case 0:
-                draw_sprite(sprItem, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 1:
-                draw_sprite(sprLongsword, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 2:
-                draw_sprite(sprLongaxe, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 3:
-                draw_sprite(sprSword, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 4:
-                draw_sprite(sprAxe, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 5:
-                draw_sprite(sprDagger, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 6:
-                draw_sprite(sprBow, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 7:
-                draw_sprite(sprCrossbow, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 8:
-                draw_sprite(sprPistol, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 9:
-                draw_sprite(sprGlaive, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 21:
-                draw_sprite(sprArmorHead, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 22:
-                draw_sprite(sprArmorChest, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 23:
-                draw_sprite(sprArmorPants, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 24:
-                draw_sprite(sprArmorGloves, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-            case 25 :
-                draw_sprite(sprArmorBoots, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
-                break;
-        }
+        draw_set_colour(c_black);
+        draw_rectangle(view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)), view_wview / 2 - 270 + 68 * (i % 8) + 64, view_hview - 216 - 24 + 68 * (floor(i / 8)) + 64, false);
+        draw_set_colour($808080);
+        draw_rectangle(view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)), view_wview / 2 - 270 + 68 * (i % 8) + 64, view_hview - 216 - 24 + 68 * (floor(i / 8)) + 64, true);
+    
+        if(inv[i, 1] == 0) draw_sprite(sprItemIcon, 0, view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
+        if(inv[i, 1] &gt;= 1 &amp;&amp; inv[i, 1] &lt;= 9) draw_sprite(sprWeaponIcon, -1 + inv[i, 1], view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
+        if(inv[i, 1] &gt;= 21 &amp;&amp; inv[i, 1] &lt;= 25) draw_sprite(sprArmorIcon, -21 + inv[i, 1], view_wview / 2 - 270 + 68 * (i % 8), view_hview - 216 - 24 + 68 * (floor(i / 8)));
     }
     
     draw_set_colour(c_black);
@@ -1487,7 +1527,6 @@ if(Ctrl.mode == 1)
         draw_set_colour($808080);
     }
     else draw_rectangle(view_wview / 2 - 270, 24, view_wview / 2 - 246, 48, false);
-    //draw_text_colour(view_wview / 2 - 270 + 12, 36, "&lt;", c_black, c_black, c_black, c_black, 1);
     draw_sprite(sprArrowSmall, 2, view_wview / 2 - 270, 24);
     
     if(next_eq_mouseover)
@@ -1497,7 +1536,6 @@ if(Ctrl.mode == 1)
         draw_set_colour($808080);
     }
     else draw_rectangle(view_wview / 2 + 246, 24, view_wview / 2 + 270, 48, false);
-    //draw_text_colour(view_wview / 2 + 246 + 12, 36, "&gt;", c_black, c_black, c_black, c_black, 1);
     draw_sprite(sprArrowSmall, 0, view_wview / 2 + 246, 24);
     
     /*
@@ -1510,175 +1548,211 @@ if(Ctrl.mode == 1)
                                 view_yview + 460
     */
     
-    if(eq_mouseover[2])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134, 68, view_wview / 2 + 198, 132, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134, 68, view_wview / 2 + 198, 132, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134, 68, view_wview / 2 + 134 + 64, 68 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134, 68, view_wview / 2 + 134 + 64, 68 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[2, 1] != -1) draw_sprite(sprArmorHead, 0, view_wview / 2 + 134, 68);
+        if(eq1[2, 1] != -1) draw_sprite(sprArmorIcon, 0, view_wview / 2 + 134, 68);
     }
     if(current_eq == 1)
     {
-        if(eq2[2, 1] != -1) draw_sprite(sprArmorHead, 0, view_wview / 2 + 134, 68);
+        if(eq2[2, 1] != -1) draw_sprite(sprArmorIcon, 0, view_wview / 2 + 134, 68);
     }
     if(current_eq == 2)
     {
-        if(eq3[2, 1] != -1) draw_sprite(sprArmorHead, 0, view_wview / 2 + 134, 68);
+        if(eq3[2, 1] != -1) draw_sprite(sprArmorIcon, 0, view_wview / 2 + 134, 68);
     }
     if(current_eq == 3)
     {
-        if(eq4[2, 1] != -1) draw_sprite(sprArmorHead, 0, view_wview / 2 + 134, 68);
+        if(eq4[2, 1] != -1) draw_sprite(sprArmorIcon, 0, view_wview / 2 + 134, 68);
     }
     
-    if(eq_mouseover[0])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134 - 72, 68 + 72, view_wview / 2 + 198 - 72, 132 + 72, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134 - 72, 68 + 72, view_wview / 2 + 198 - 72, 132 + 72, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134 - 72, 68 + 72, view_wview / 2 + 134 - 72 + 64, 68 + 72 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134 - 72, 68 + 72, view_wview / 2 + 134 - 72 + 64, 68 + 72 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[0, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 - 72, 68 + 72);
+        if(eq1[0, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 - 72, 68 + 72);
     }
     if(current_eq == 1)
     {
-        if(eq2[0, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 - 72, 68 + 72);
+        if(eq2[0, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 - 72, 68 + 72);
     }
     if(current_eq == 2)
     {
-        if(eq3[0, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 - 72, 68 + 72);
+        if(eq3[0, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 - 72, 68 + 72);
     }
     if(current_eq == 3)
     {
-        if(eq4[0, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 - 72, 68 + 72);
+        if(eq4[0, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 - 72, 68 + 72);
     }
     
-    if(eq_mouseover[3])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134, 68 + 72, view_wview / 2 + 198, 132 + 72, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134, 68 + 72, view_wview / 2 + 198, 132 + 72, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134, 68 + 72, view_wview / 2 + 134 + 64, 68 + 72 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134, 68 + 72, view_wview / 2 + 134 + 64, 68 + 72 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[3, 1] != -1) draw_sprite(sprArmorChest, 0, view_wview / 2 + 134, 68 + 72);
+        if(eq1[3, 1] != -1) draw_sprite(sprArmorIcon, 1, view_wview / 2 + 134, 68 + 72);
     }
     if(current_eq == 1)
     {
-        if(eq2[3, 1] != -1) draw_sprite(sprArmorChest, 0, view_wview / 2 + 134, 68 + 72);
+        if(eq2[3, 1] != -1) draw_sprite(sprArmorIcon, 1, view_wview / 2 + 134, 68 + 72);
     }
     if(current_eq == 2)
     {
-        if(eq3[3, 1] != -1) draw_sprite(sprArmorChest, 0, view_wview / 2 + 134, 68 + 72);
+        if(eq3[3, 1] != -1) draw_sprite(sprArmorIcon, 1, view_wview / 2 + 134, 68 + 72);
     }
     if(current_eq == 3)
     {
-        if(eq4[3, 1] != -1) draw_sprite(sprArmorChest, 0, view_wview / 2 + 134, 68 + 72);
+        if(eq4[3, 1] != -1) draw_sprite(sprArmorIcon, 1, view_wview / 2 + 134, 68 + 72);
     }
     
-    if(eq_mouseover[1])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134 + 72, 68 + 72, view_wview / 2 + 198 + 72, 132 + 72, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134 + 72, 68 + 72, view_wview / 2 + 198 + 72, 132 + 72, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134 + 72, 68 + 72, view_wview / 2 + 134 + 72 + 64, 68 + 72 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134 + 72, 68 + 72, view_wview / 2 + 134 + 72 + 64, 68 + 72 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[1, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 + 72, 68 + 72);
+        if(eq1[1, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 + 72, 68 + 72);
     }
     if(current_eq == 1)
     {
-        if(eq2[1, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 + 72, 68 + 72);
+        if(eq2[1, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 + 72, 68 + 72);
     }
     if(current_eq == 2)
     {
-        if(eq3[1, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 + 72, 68 + 72);
+        if(eq3[1, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 + 72, 68 + 72);
     }
     if(current_eq == 3)
     {
-        if(eq4[1, 1] != -1) draw_sprite(sprLongsword, 0, view_wview / 2 + 134 + 72, 68 + 72);
+        if(eq4[1, 1] != -1) draw_sprite(sprWeaponIcon, 0, view_wview / 2 + 134 + 72, 68 + 72);
     }
     
-    if(eq_mouseover[5])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134 - 72, 68 + 144, view_wview / 2 + 198 - 72, 132 + 144, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134 - 72, 68 + 144, view_wview / 2 + 198 - 72, 132 + 144, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134 - 72, 68 + 144, view_wview / 2 + 134 - 72 + 64, 68 + 144 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134 - 72, 68 + 144, view_wview / 2 + 134 - 72 + 64, 68 + 144 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[5, 1] != -1) draw_sprite(sprArmorGloves, 0, view_wview / 2 + 134 - 72, 68 + 144);
+        if(eq1[5, 1] != -1) draw_sprite(sprArmorIcon, 3, view_wview / 2 + 134 - 72, 68 + 144);
     }
     if(current_eq == 1)
     {
-        if(eq2[5, 1] != -1) draw_sprite(sprArmorGloves, 0, view_wview / 2 + 134 - 72, 68 + 144);
+        if(eq2[5, 1] != -1) draw_sprite(sprArmorIcon, 3, view_wview / 2 + 134 - 72, 68 + 144);
     }
     if(current_eq == 2)
     {
-        if(eq3[5, 1] != -1) draw_sprite(sprArmorGloves, 0, view_wview / 2 + 134 - 72, 68 + 144);
+        if(eq3[5, 1] != -1) draw_sprite(sprArmorIcon, 3, view_wview / 2 + 134 - 72, 68 + 144);
     }
     if(current_eq == 3)
     {
-        if(eq4[5, 1] != -1) draw_sprite(sprArmorGloves, 0, view_wview / 2 + 134 - 72, 68 + 144);
+        if(eq4[5, 1] != -1) draw_sprite(sprArmorIcon, 3, view_wview / 2 + 134 - 72, 68 + 144);
     }
     
-    if(eq_mouseover[4])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134, 68 + 144, view_wview / 2 + 198, 132 + 144, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134, 68 + 144, view_wview / 2 + 198, 132 + 144, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134, 68 + 144, view_wview / 2 + 134 + 64, 68 + 144 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134, 68 + 144, view_wview / 2 + 134 + 64, 68 + 144 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[4, 1] != -1) draw_sprite(sprArmorPants, 0, view_wview / 2 + 134, 68 + 144);
+        if(eq1[4, 1] != -1) draw_sprite(sprArmorIcon, 2, view_wview / 2 + 134, 68 + 144);
     }
     if(current_eq == 1)
     {
-        if(eq2[4, 1] != -1) draw_sprite(sprArmorPants, 0, view_wview / 2 + 134, 68 + 144);
+        if(eq2[4, 1] != -1) draw_sprite(sprArmorIcon, 2, view_wview / 2 + 134, 68 + 144);
     }
     if(current_eq == 2)
     {
-        if(eq3[4, 1] != -1) draw_sprite(sprArmorPants, 0, view_wview / 2 + 134, 68 + 144);
+        if(eq3[4, 1] != -1) draw_sprite(sprArmorIcon, 2, view_wview / 2 + 134, 68 + 144);
     }
     if(current_eq == 3)
     {
-        if(eq4[4, 1] != -1) draw_sprite(sprArmorPants, 0, view_wview / 2 + 134, 68 + 144);
+        if(eq4[4, 1] != -1) draw_sprite(sprArmorIcon, 2, view_wview / 2 + 134, 68 + 144);
     }
     
-    if(eq_mouseover[6])
-    {
-        draw_set_colour($BBBBBB);
-        draw_rectangle(view_wview / 2 + 134 + 72, 68 + 144, view_wview / 2 + 198 + 72, 132 + 144, false);
-        draw_set_colour($808080);
-    }
-    else draw_rectangle(view_wview / 2 + 134 + 72, 68 + 144, view_wview / 2 + 198 + 72, 132 + 144, false);
+    draw_set_colour(c_black);
+    draw_rectangle(view_wview / 2 + 134 + 72, 68 + 144, view_wview / 2 + 134 + 72 + 64, 68 + 144 + 64, false);
+    draw_set_colour($808080);
+    draw_rectangle(view_wview / 2 + 134 + 72, 68 + 144, view_wview / 2 + 134 + 72 + 64, 68 + 144 + 64, true);
+    
     if(current_eq == 0)
     {
-        if(eq1[6, 1] != -1) draw_sprite(sprArmorBoots, 0, view_wview / 2 + 134 + 72, 68 + 144);
+        if(eq1[6, 1] != -1) draw_sprite(sprArmorIcon, 4, view_wview / 2 + 134 + 72, 68 + 144);
     }
     if(current_eq == 1)
     {
-        if(eq2[6, 1] != -1) draw_sprite(sprArmorBoots, 0, view_wview / 2 + 134 + 72, 68 + 144);
+        if(eq2[6, 1] != -1) draw_sprite(sprArmorIcon, 4, view_wview / 2 + 134 + 72, 68 + 144);
     }
     if(current_eq == 2)
     {
-        if(eq3[6, 1] != -1) draw_sprite(sprArmorBoots, 0, view_wview / 2 + 134 + 72, 68 + 144);
+        if(eq3[6, 1] != -1) draw_sprite(sprArmorIcon, 4, view_wview / 2 + 134 + 72, 68 + 144);
     }
     if(current_eq == 3)
     {
-        if(eq4[6, 1] != -1) draw_sprite(sprArmorBoots, 0, view_wview / 2 + 134 + 72, 68 + 144);
+        if(eq4[6, 1] != -1) draw_sprite(sprArmorIcon, 4, view_wview / 2 + 134 + 72, 68 + 144);
     }
     
-    draw_rectangle(view_wview / 2 - 270, 68, view_wview / 2 + 134 - 80, 132 + 144, false);
+    //draw_rectangle(view_wview / 2 - 270, 68, view_wview / 2 + 134 - 80, 132 + 144, false);
+    
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90), 172 + lengthdir_y(80, 90));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 45), 172 + lengthdir_y(80, 90 + 45));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 90), 172 + lengthdir_y(80, 90 + 90));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 135), 172 + lengthdir_y(80, 90 + 135));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 180), 172 + lengthdir_y(80, 90 + 180));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 225), 172 + lengthdir_y(80, 90 + 225));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 270), 172 + lengthdir_y(80, 90 + 270));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 315), 172 + lengthdir_y(80, 90 + 315));
+    
+    draw_set_valign(fa_middle);
+    draw_set_halign(fa_center);
+    draw_set_colour(c_white);
+    
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 90), 172 + lengthdir_y(100, 90), "ATK");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 135), 172 + lengthdir_y(100, 135), "KRT");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 180), 172 + lengthdir_y(100, 180), "CZS");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 225), 172 + lengthdir_y(100, 225), "ZWT");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 270), 172 + lengthdir_y(100, 270), "ZRC");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 315), 172 + lengthdir_y(100, 315), "PNC");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 0), 172 + lengthdir_y(100, 0), "WTR");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 45), 172 + lengthdir_y(100, 45), "INC");
+    
+    draw_set_colour(c_gray);
+    draw_set_valign(fa_top);
+    draw_set_halign(fa_left);
+    
+    stat_max = max((hero[current_eq, 0] + hero[current_eq, 1]) / 2, hero[current_eq, 2], (hero[current_eq, 3] + hero[current_eq, 4]) / 2, hero[current_eq, 5] / 10, hero[current_eq, 6], hero[current_eq, 7], hero[current_eq, 8], hero[current_eq, 9]);
+    
+    stat_atk = 80 * ((hero[current_eq, 0] + hero[current_eq, 1]) / 2) / stat_max;
+    stat_krt = 80 * hero[current_eq, 2] / stat_max;
+    stat_czs = 80 * ((hero[current_eq, 3] + hero[current_eq, 4]) / 2) / stat_max;
+    stat_zwt = 80 * (hero[current_eq, 5] / 10) / stat_max;
+    stat_zrc = 80 * hero[current_eq, 6] / stat_max;
+    stat_pnc = 80 * hero[current_eq, 7] / stat_max;
+    stat_wtr = 80 * hero[current_eq, 8] / stat_max;
+    stat_inc = 80 * hero[current_eq, 9] / stat_max;
+    
+    draw_set_colour(make_colour_rgb(153, 217, 234));
+    
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_atk, 90), 172 + lengthdir_y(stat_atk, 90), view_wview / 2 - 108 + lengthdir_x(stat_krt, 135), 172 + lengthdir_y(stat_krt, 135), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_krt, 135), 172 + lengthdir_y(stat_krt, 135), view_wview / 2 - 108 + lengthdir_x(stat_czs, 180), 172 + lengthdir_y(stat_czs, 180), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_czs, 180), 172 + lengthdir_y(stat_czs, 180), view_wview / 2 - 108 + lengthdir_x(stat_zwt, 225), 172 + lengthdir_y(stat_zwt, 225), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_zwt, 225), 172 + lengthdir_y(stat_zwt, 225), view_wview / 2 - 108 + lengthdir_x(stat_zrc, 270), 172 + lengthdir_y(stat_zrc, 270), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_zrc, 270), 172 + lengthdir_y(stat_zrc, 270), view_wview / 2 - 108 + lengthdir_x(stat_pnc, 315), 172 + lengthdir_y(stat_pnc, 315), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_pnc, 315), 172 + lengthdir_y(stat_pnc, 315), view_wview / 2 - 108 + lengthdir_x(stat_wtr, 0), 172 + lengthdir_y(stat_wtr, 0), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_wtr, 0), 172 + lengthdir_y(stat_wtr, 0), view_wview / 2 - 108 + lengthdir_x(stat_inc, 45), 172 + lengthdir_y(stat_inc, 45), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_inc, 45), 172 + lengthdir_y(stat_inc, 45), view_wview / 2 - 108 + lengthdir_x(stat_atk, 90), 172 + lengthdir_y(stat_atk, 90), 2);
+    
+    draw_set_colour(c_gray);
     
     draw_line(view_wview /2 - 270, 132 + 144 + 8, view_wview / 2 + 270, 132 + 144 + 8)
     
@@ -2053,7 +2127,7 @@ if(Ctrl.mode == 1)
                 
                 draw_text(mouse_x + 8 - view_xview, mouse_y - 96 + 32 - view_yview, "Atak: " + string(inv[i, 2]));
                 draw_text(mouse_x + 8 - view_xview, mouse_y - 96 + 48 - view_yview, "DoT: " + string(inv[i, 3]));
-                draw_text(mouse_x + 8 - view_xview, mouse_y - 96 + 64 - view_yview, "Szybkosc" + string(inv[i, 4]));
+                draw_text(mouse_x + 8 - view_xview, mouse_y - 96 + 64 - view_yview, "Szybkosc: " + string(inv[i, 4]));
                 draw_set_colour(c_black);
             }
         }
@@ -2095,58 +2169,117 @@ if(show_char)
     else draw_rectangle(view_wview / 2 + 246, 24, view_wview / 2 + 270, 48, false);
     draw_sprite(sprArrowSmall, 0, view_wview / 2 + 246, 24);
     
-    draw_rectangle(view_wview / 2 + 60, 100, view_wview / 2 + 84, 124, false);
-    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 100);
+    draw_rectangle(view_wview / 2 + 60, 85, view_wview / 2 + 84, 109, false);
+    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 85);
     draw_set_halign(fa_center);
     draw_set_colour(c_white);
-    draw_text(view_wview / 2 + 100, 105, string(heroBase[current_eq, 1]));
+    draw_text(view_wview / 2 + 100, 90, string(heroBase[current_eq, 1]));
     draw_set_halign(fa_left);
-    draw_text(view_wview / 2 + 116, 105, "Atak");
+    draw_text(view_wview / 2 + 116, 90, "Atak");
     draw_set_colour(c_gray);
     
-    draw_rectangle(view_wview / 2 + 60, 130, view_wview / 2 + 84, 154, false);
-    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 130);
+    draw_rectangle(view_wview / 2 + 60, 115, view_wview / 2 + 84, 139, false);
+    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 115);
     draw_set_halign(fa_center);
     draw_set_colour(c_white);
-    draw_text(view_wview / 2 + 100, 135, string(heroBase[current_eq, 2]));
+    draw_text(view_wview / 2 + 100, 120, string(heroBase[current_eq, 2]));
     draw_set_halign(fa_left);
-    draw_text(view_wview / 2 + 116, 135, "Obr. krytyczne");
+    draw_text(view_wview / 2 + 116, 120, "Obr. krytyczne");
     draw_set_colour(c_gray);
     
-    draw_rectangle(view_wview / 2 + 60, 160, view_wview / 2 + 84, 184, false);
-    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 160);
+    draw_rectangle(view_wview / 2 + 60, 145, view_wview / 2 + 84, 169, false);
+    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 145);
     draw_set_halign(fa_center);
     draw_set_colour(c_white);
-    draw_text(view_wview / 2 + 100, 165, string(heroBase[current_eq, 3]));
+    draw_text(view_wview / 2 + 100, 150, string(heroBase[current_eq, 3]));
     draw_set_halign(fa_left);
-    draw_text(view_wview / 2 + 116, 165, "Obr. w czasie");
+    draw_text(view_wview / 2 + 116, 150, "Obr. w czasie");
     draw_set_colour(c_gray);
     
-    draw_rectangle(view_wview / 2 + 60, 190, view_wview / 2 + 84, 214, false);
-    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 190);
+    draw_rectangle(view_wview / 2 + 60, 175, view_wview / 2 + 84, 199, false);
+    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 175);
     draw_set_halign(fa_center);
     draw_set_colour(c_white);
-    draw_text(view_wview / 2 + 100, 195, string(heroBase[current_eq, 4]));
+    draw_text(view_wview / 2 + 100, 180, string(heroBase[current_eq, 4]));
     draw_set_halign(fa_left);
-    draw_text(view_wview / 2 + 116, 195, "Zywotnosc");
+    draw_text(view_wview / 2 + 116, 180, "Zywotnosc");
     draw_set_colour(c_gray);
     
-    draw_rectangle(view_wview / 2 + 60, 220, view_wview / 2 + 84, 244, false);
-    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 220);
+    draw_rectangle(view_wview / 2 + 60, 205, view_wview / 2 + 84, 229, false);
+    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 205);
     draw_set_halign(fa_center);
     draw_set_colour(c_white);
-    draw_text(view_wview / 2 + 100, 225, string(heroBase[current_eq, 5]));
+    draw_text(view_wview / 2 + 100, 210, string(heroBase[current_eq, 5]));
     draw_set_halign(fa_left);
-    draw_text(view_wview / 2 + 116, 225, "Zrecznosc");
+    draw_text(view_wview / 2 + 116, 210, "Zrecznosc");
     draw_set_colour(c_gray);
     
-    draw_rectangle(view_wview / 2 - 270, 68, view_wview / 2 + 134 - 80, 132 + 144, false);
+    draw_rectangle(view_wview / 2 + 60, 235, view_wview / 2 + 84, 259, false);
+    draw_sprite(sprPlus, 0, view_wview / 2 + 60, 235);
+    draw_set_halign(fa_center);
+    draw_set_colour(c_white);
+    draw_text(view_wview / 2 + 100, 240, string(heroBase[current_eq, 6]));
+    draw_set_halign(fa_left);
+    draw_text(view_wview / 2 + 116, 240, "Inicjatywa");
+    draw_set_colour(c_gray);
+    
+    //draw_rectangle(view_wview / 2 - 270, 68, view_wview / 2 + 134 - 80, 132 + 144, false);
+    
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90), 172 + lengthdir_y(80, 90));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 45), 172 + lengthdir_y(80, 90 + 45));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 90), 172 + lengthdir_y(80, 90 + 90));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 135), 172 + lengthdir_y(80, 90 + 135));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 180), 172 + lengthdir_y(80, 90 + 180));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 225), 172 + lengthdir_y(80, 90 + 225));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 270), 172 + lengthdir_y(80, 90 + 270));
+    draw_line(view_wview / 2 - 108, 172, view_wview / 2 - 108 + lengthdir_x(80, 90 + 315), 172 + lengthdir_y(80, 90 + 315));
+    
+    draw_set_valign(fa_middle);
+    draw_set_halign(fa_center);
+    draw_set_colour(c_white);
+    
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 90), 172 + lengthdir_y(100, 90), "ATK");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 135), 172 + lengthdir_y(100, 135), "KRT");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 180), 172 + lengthdir_y(100, 180), "CZS");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 225), 172 + lengthdir_y(100, 225), "ZWT");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 270), 172 + lengthdir_y(100, 270), "ZRC");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 315), 172 + lengthdir_y(100, 315), "PNC");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 0), 172 + lengthdir_y(100, 0), "WTR");
+    draw_text(view_wview / 2 - 108 + lengthdir_x(100, 45), 172 + lengthdir_y(100, 45), "INC");
+    
+    draw_set_colour(c_gray);
+    draw_set_valign(fa_top);
+    draw_set_halign(fa_left);
+    
+    stat_max = max((hero[current_eq, 0] + hero[current_eq, 1]) / 2, hero[current_eq, 2], (hero[current_eq, 3] + hero[current_eq, 4]) / 2, hero[current_eq, 5] / 10, hero[current_eq, 6], hero[current_eq, 7], hero[current_eq, 8], hero[current_eq, 9]);
+    
+    stat_atk = 80 * ((hero[current_eq, 0] + hero[current_eq, 1]) / 2) / stat_max;
+    stat_krt = 80 * hero[current_eq, 2] / stat_max;
+    stat_czs = 80 * ((hero[current_eq, 3] + hero[current_eq, 4]) / 2) / stat_max;
+    stat_zwt = 80 * (hero[current_eq, 5] / 10) / stat_max;
+    stat_zrc = 80 * hero[current_eq, 6] / stat_max;
+    stat_pnc = 80 * hero[current_eq, 7] / stat_max;
+    stat_wtr = 80 * hero[current_eq, 8] / stat_max;
+    stat_inc = 80 * hero[current_eq, 9] / stat_max;
+    
+    draw_set_colour(make_colour_rgb(153, 217, 234));
+    
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_atk, 90), 172 + lengthdir_y(stat_atk, 90), view_wview / 2 - 108 + lengthdir_x(stat_krt, 135), 172 + lengthdir_y(stat_krt, 135), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_krt, 135), 172 + lengthdir_y(stat_krt, 135), view_wview / 2 - 108 + lengthdir_x(stat_czs, 180), 172 + lengthdir_y(stat_czs, 180), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_czs, 180), 172 + lengthdir_y(stat_czs, 180), view_wview / 2 - 108 + lengthdir_x(stat_zwt, 225), 172 + lengthdir_y(stat_zwt, 225), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_zwt, 225), 172 + lengthdir_y(stat_zwt, 225), view_wview / 2 - 108 + lengthdir_x(stat_zrc, 270), 172 + lengthdir_y(stat_zrc, 270), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_zrc, 270), 172 + lengthdir_y(stat_zrc, 270), view_wview / 2 - 108 + lengthdir_x(stat_pnc, 315), 172 + lengthdir_y(stat_pnc, 315), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_pnc, 315), 172 + lengthdir_y(stat_pnc, 315), view_wview / 2 - 108 + lengthdir_x(stat_wtr, 0), 172 + lengthdir_y(stat_wtr, 0), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_wtr, 0), 172 + lengthdir_y(stat_wtr, 0), view_wview / 2 - 108 + lengthdir_x(stat_inc, 45), 172 + lengthdir_y(stat_inc, 45), 2);
+    draw_line_width(view_wview / 2 - 108 + lengthdir_x(stat_inc, 45), 172 + lengthdir_y(stat_inc, 45), view_wview / 2 - 108 + lengthdir_x(stat_atk, 90), 172 + lengthdir_y(stat_atk, 90), 2);
+    
+    draw_set_colour(c_gray);
     
     draw_line(view_wview / 2 - 270, 132 + 144 + 8, view_wview / 2 + 270, 132 + 144 + 8)
     
     for(i = 0; i &lt; 10; i++)
     {
-        if(action[current_eq, i]) draw_sprite(sprSkillIcon, 2 + (action[current_eq, i] % 5), view_wview / 2 - 270 + i*(60/9) + i*48, 292);
+        if(action[current_eq, i]) draw_sprite(sprSkillIcon, 1 + (action[current_eq, i]), view_wview / 2 - 270 + i*(60/9) + i*48, 292);
         else draw_sprite(sprSkillIcon, 0, view_wview / 2 - 270 + i*(60/9) + i*48, 292);
         draw_set_colour(c_black);
         //draw_text(view_wview / 2 - 270 + i*(60/9) + i*48, 292, string(action[current_eq, i]));
@@ -2156,7 +2289,7 @@ if(show_char)
     {
         for(j = 0; j &lt; 5; j++)
         {
-            draw_sprite(sprSkillIcon, 2 + (action[current_eq, i] % 5), view_wview / 2 - 144 + (j+1)*8 + j*48, view_hview - 288 - 24 + i*8 + i*48);
+            draw_sprite(sprSkillIcon, 2 + 43 + i*5 + j, view_wview / 2 - 144 + (j+1)*8 + j*48, view_hview - 288 - 24 + i*8 + i*48);
             //draw_text(view_wview / 2 - 144 + (j+1)*8 + j*48, view_hview - 288 - 24 + i*8 + i*48, string(i*5 + j));
         }
     }
@@ -2205,10 +2338,14 @@ if(show_char)
 
 if(grabbed_item[1] != -1)
 {
-    tempcol = draw_get_colour();
+    /*tempcol = draw_get_colour();
     draw_set_colour(c_gray);
     draw_rectangle(mouse_x - view_xview - 32, mouse_y - view_yview - 32, mouse_x - view_xview + 32, mouse_y - view_yview + 32, false);
-    draw_set_colour(tempcol);
+    draw_set_colour(tempcol);*/
+    
+    if(grabbed_item[1] == 0) draw_sprite(sprItemIcon, 0, mouse_x - view_xview - 32, mouse_y - view_yview - 32);
+    if(grabbed_item[1] &gt;= 1 &amp;&amp; grabbed_item[1] &lt;= 9) draw_sprite(sprWeaponIcon, -2 + grabbed_item[1], mouse_x - view_xview - 32, mouse_y - view_yview - 32);
+    if(grabbed_item[1] &gt;= 21 &amp;&amp; grabbed_item[1] &lt;= 25) draw_sprite(sprArmorIcon, -21 + grabbed_item[1], mouse_x - view_xview - 32, mouse_y - view_yview - 32);
 }
 
 if(grabbed_skill)
@@ -2228,7 +2365,20 @@ if(Ctrl.mode == 1)
     {
         for(i = 0; i &lt; 10; i++)
         {
-            draw_sprite(sprSkillIcon, 2 + (action[current_eq, i] % 5), view_wview / 2 - 258 + i*4 + i*48, view_hview - 56);
+            draw_sprite(sprSkillIcon, 1 + (action[current_eq, i]), view_wview / 2 - 258 + i*4 + i*48, view_hview - 56);
+            if(Ctrl.cooldown[current_eq, i] &gt; 0)
+            {
+                draw_set_alpha(0.5);
+                draw_set_colour(c_black);
+                draw_rectangle(view_wview / 2 - 258 + (i - 1) * 4 + (i - 1) * 48, view_hview - 56, view_wview / 2 - 258 + (i - 1) * 4 + (i - 1) * 48 + 48, view_hview - 56 + 48, false);
+                draw_set_alpha(1);
+                draw_set_colour(c_orange);
+                draw_set_valign(fa_middle);
+                draw_set_halign(fa_center);
+                draw_text(view_wview / 2 - 258 + (i - 1) * 4 + (i - 1) * 48 + 24, view_hview - 56 + 24, string(Ctrl.cooldown[current_eq, i]));
+                draw_set_valign(fa_top);
+                draw_set_halign(fa_left);
+            }
             //draw_text(view_wview / 2 - 258 + i*4 + i*48, view_hview - 56, string(action[current_eq, i]));
         }
         
@@ -2261,8 +2411,69 @@ if(Ctrl.mode == 1)
             draw_rectangle(view_wview / 2 - 258 + i*4 + i*48, view_hview - 56, view_wview / 2 - 258 + i*4 + (i+1)*48, view_hview - 8, false);
         }
     }
-    
 }
+else
+{
+    for(i = 0; i &lt; quests; i++)
+    {
+        if(quest_tracking[i])
+        {
+            if(quest[i, 3] == 1)
+            {
+                draw_sprite_ext(sprTracker, 0, (Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, 1, 1, point_direction((Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, (quest[i, 0]).x - view_xview, (quest[i, 0]).y - view_yview), c_white, 1);
+                draw_sprite(sprTracker, 1, (Ctrl.h1).x - view_xview + lengthdir_x(76, point_direction((Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, (quest[i, 0]).x - view_xview, (quest[i, 0]).y - view_yview)), (Ctrl.h1).y - view_yview + lengthdir_y(76, point_direction((Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, (quest[i, 0]).x - view_xview, (quest[i, 0]).y - view_yview)));
+            }
+            if(quest[i, 3] == 2)
+            {
+                draw_sprite_ext(sprTracker, 0, (Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, 1, 1, point_direction((Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, (quest[i, 2]).x - view_xview, (quest[i, 2]).y - view_yview), c_white, 1);
+                draw_sprite(sprTracker, 2, (Ctrl.h1).x - view_xview + lengthdir_x(76, point_direction((Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, (quest[i, 2]).x - view_xview, (quest[i, 2]).y - view_yview)), (Ctrl.h1).y - view_yview + lengthdir_y(76, point_direction((Ctrl.h1).x - view_xview, (Ctrl.h1).y - view_yview, (quest[i, 2]).x - view_xview, (quest[i, 2]).y - view_yview)));
+            }
+        }
+    }
+    
+    if(show_quests)
+    {
+        draw_set_alpha(0.5);
+        draw_set_colour(c_black);
+        draw_rectangle(view_wview - 200, 100, view_wview, 120 + (quests * 36), false);
+        draw_set_alpha(1);
+        draw_set_colour(c_orange);
+        draw_set_halign(fa_center);
+        draw_text(view_wview - 100, 106, "Zlecenia");
+        draw_set_halign(fa_left);
+        draw_set_colour(c_white);
+        
+        for(i = 0; i &lt; quests; i++)
+        {
+            draw_text(view_wview - 196, 120 + (i * 36), "Nagroda: " + string(quest[i, 1]) + "#Sledzenie: ");
+            draw_rectangle(view_wview - 100, 136 + (i * 36), view_wview - 84, 152 + (i * 36), true);
+            if(quest_tracking[i]) draw_rectangle(view_wview - 100, 136 + (i * 36), view_wview - 84, 152 + (i * 36), false);
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="86">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>show_quests = !show_quests;
 </string>
           </argument>
         </arguments>

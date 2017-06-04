@@ -119,21 +119,31 @@ for(i = 0; i &lt; 64; i++)
     if(Ctrl.suny &lt; 0) draw_sprite(sprSun, 0, view_wview/2 + Ctrl.sunx*800 , view_hview/2 - Ctrl.suny*128);
     if(Ctrl.suny &gt; 0) draw_sprite(sprMoon, 0, view_wview/2 - Ctrl.sunx*800 , view_hview/2 + Ctrl.suny*128);
     
-    for(i = 0; i &lt; 3; i++)
+    /*for(i = 0; i &lt; 3; i++)
     {
         draw_sprite_ext(sprCloud, Ctrl.cloud[i, 2], Ctrl.cloud[i, 0] , Ctrl.cloud[i, 1], Ctrl.cloud[i, 3], Ctrl.cloud[i, 4], 0, $eeeeee, 1);
         draw_sprite_ext(sprCloud, Ctrl.cloud[i, 2], Ctrl.cloud[i, 0] , Ctrl.cloud[i, 1], Ctrl.cloud[i, 3], Ctrl.cloud[i, 4], 0, $aaaaaa, (1 - Ctrl.sunlight));
-    }
-    draw_set_colour(make_colour_rgb(120, 120, 120));
+    }*/
+    
+    draw_sprite_ext(sprClouds, 0, view_wview / 2, view_hview / 2, 1, 1, 0, c_white, 1);
+    draw_sprite_ext(sprOvercast, 0, 0, 0, 1, 1, 0, c_white, Ctrl.overcast * 0.9)
+    
+    /*draw_set_colour(make_colour_rgb(120, 120, 120));
     draw_set_alpha(Ctrl.overcast*0.9);
     draw_rectangle(0, 0, surface_get_width(surfStraight), surface_get_height(surfStraight), false);
-    draw_set_alpha(1);
+    draw_set_alpha(1);*/
     
     for(i = 0; i &lt; instance_number(Tree); i++)
     {
         cur = instance_find(Tree, i);
-        draw_sprite_ext(sprTreeS, 1, cur.x - view_xview , cur.y - view_yview + 160, cur.scale, cur.scale*0.5, 0, make_colour_rgb(0, 20, 40), 1);
-        draw_sprite_ext(sprTreeS, 1, cur.x - view_xview , cur.y - view_yview + 160, -cur.scale, cur.scale*-0.5, 0, make_colour_rgb(0, 20, 40), 1);
+        draw_sprite_ext(sprTreeS, 1, cur.x - view_xview , cur.y - view_yview + 160, cur.scale * 0.8, cur.scale * 0.4, 0, make_colour_rgb(0, 20, 40), 1);
+        draw_sprite_ext(sprTreeS, 1, cur.x - view_xview , cur.y - view_yview + 160, -cur.scale * 0.8, -cur.scale * 0.4, 0, make_colour_rgb(0, 20, 40), 1);
+    }
+    
+    for(i = 0; i &lt; instance_number(BirdShadow); i++)
+    {
+        cur = instance_find(BirdShadow, i);
+        draw_sprite_ext(cur.sprite_index, cur.image_index, cur.x - view_xview , cur.y - view_yview + 120, cur.image_xscale, -1 * cur.image_yscale, cur.direction, make_colour_rgb(0, 20, 40), 1);
     }
     
     for(i = 0; i &lt; instance_number(BattleParent); i++)
