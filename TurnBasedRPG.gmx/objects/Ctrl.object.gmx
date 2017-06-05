@@ -718,7 +718,37 @@ if(mode == 1)
                 
                 (currentChar).ap -= ActionCtrl.action[actionid, 2];
                 
-                (currentChar).timeline_index = animAttack2h;
+                switch((currentChar).eq[0, 1])
+                {
+                    case 1:
+                        (currentChar).timeline_index = animAttack2h;
+                        break;
+                    case 2:
+                        (currentChar).timeline_index = animAttack2h;
+                        break;
+                    case 3:
+                        (currentChar).timeline_index = animAttackMh;
+                        break;
+                    case 4:
+                        (currentChar).timeline_index = animAttackMh;
+                        break;
+                    case 5:
+                        (currentChar).timeline_index = animAttackMh;
+                        break;
+                    case 6:
+                        (currentChar).timeline_index = animAttackBow;
+                        break;
+                    case 7:
+                        (currentChar).timeline_index = animAttackCrossbow;
+                        break;
+                    case 8:
+                        (currentChar).timeline_index = animAttackPistolMh;
+                        break;
+                    case 9:
+                        (currentChar).timeline_index = animAttackGlavia;
+                        break;
+                }
+                
                 (currentChar).timeline_position = 0;
                 (currentChar).timeline_speed = 1;
                 (currentChar).timeline_loop = false;

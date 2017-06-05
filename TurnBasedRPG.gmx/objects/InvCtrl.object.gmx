@@ -74,37 +74,37 @@ show_quests = false;
 
 */
 
-heroBase[0, 0] = "Jacek";
-heroBase[0, 1] = 10 + irandom(10);
-heroBase[0, 2] = 10 + irandom(10);
-heroBase[0, 3] = 10 + irandom(10);
-heroBase[0, 4] = 10 + irandom(10);
-heroBase[0, 5] = 10 + irandom(10);
-heroBase[0, 6] = 10 + irandom(10);
+heroBase[0, 0] = "Lider";
+heroBase[0, 1] = 10;
+heroBase[0, 2] = 10;
+heroBase[0, 3] = 10;
+heroBase[0, 4] = 10;
+heroBase[0, 5] = 10;
+heroBase[0, 6] = 10;
 
-heroBase[1, 0] = "John Wick";
-heroBase[1, 1] = 10 + irandom(10);
-heroBase[1, 2] = 10 + irandom(10);
-heroBase[1, 3] = 10 + irandom(10);
-heroBase[1, 4] = 10 + irandom(10);
-heroBase[1, 5] = 10 + irandom(10);
-heroBase[1, 6] = 10 + irandom(10);
+heroBase[1, 0] = "Wojak";
+heroBase[1, 1] = 10;
+heroBase[1, 2] = 10;
+heroBase[1, 3] = 10;
+heroBase[1, 4] = 10;
+heroBase[1, 5] = 10;
+heroBase[1, 6] = 10;
 
-heroBase[2, 0] = "Janusz";
-heroBase[2, 1] = 10 + irandom(10);
-heroBase[2, 2] = 10 + irandom(10);
-heroBase[2, 3] = 10 + irandom(10);
-heroBase[2, 4] = 10 + irandom(10);
-heroBase[2, 5] = 10 + irandom(10);
-heroBase[2, 6] = 10 + irandom(10);
+heroBase[2, 0] = "Cichy";
+heroBase[2, 1] = 10;
+heroBase[2, 2] = 10;
+heroBase[2, 3] = 10;
+heroBase[2, 4] = 10;
+heroBase[2, 5] = 10;
+heroBase[2, 6] = 10;
 
 heroBase[3, 0] = "Jurand";
-heroBase[3, 1] = 10 + irandom(10);
-heroBase[3, 2] = 10 + irandom(10);
-heroBase[3, 3] = 10 + irandom(10);
-heroBase[3, 4] = 10 + irandom(10);
-heroBase[3, 5] = 10 + irandom(10);
-heroBase[3, 6] = 10 + irandom(10);
+heroBase[3, 1] = 10;
+heroBase[3, 2] = 10;
+heroBase[3, 3] = 10;
+heroBase[3, 4] = 10;
+heroBase[3, 5] = 10;
+heroBase[3, 6] = 10;
 
 /*
 
@@ -150,7 +150,7 @@ eq3[1, 1] = -1;
 eq4[1, 1] = -1;
 
 eq1[0, 0] = "Ostrze najemnika";
-eq1[0, 1] = 2;
+eq1[0, 1] = 1;
 eq1[0, 2] = 100;
 eq1[0, 3] = 0;
 eq1[0, 4] = 1;
@@ -193,11 +193,18 @@ eq1[6, 5] = 0;
 
 
 eq2[0, 0] = "Ostrze zabojcy";
-eq2[0, 1] = 1;
+eq2[0, 1] = 5;
 eq2[0, 2] = 100;
 eq2[0, 3] = 0;
 eq2[0, 4] = 1;
 eq2[0, 5] = 2;
+
+eq2[1, 0] = "Ostrze zabojcy";
+eq2[1, 1] = 5;
+eq2[1, 2] = 100;
+eq2[1, 3] = 0;
+eq2[1, 4] = 1;
+eq2[1, 5] = 2;
 
 eq2[2, 0] = "Kaptur zabojcy";
 eq2[2, 1] = 21;
@@ -235,8 +242,8 @@ eq2[6, 4] = 0.03;
 eq2[6, 5] = 0;
 
 
-eq3[0, 0] = "Ostrze bohatera";
-eq3[0, 1] = 1;
+eq3[0, 0] = "Luk bohatera";
+eq3[0, 1] = 6;
 eq3[0, 2] = 100;
 eq3[0, 3] = 0;
 eq3[0, 4] = 1;
@@ -278,12 +285,19 @@ eq3[6, 4] = 0.03;
 eq3[6, 5] = 2;
 
 
-eq4[0, 0] = "Ostrze szpiega";
-eq4[0, 1] = 1;
+eq4[0, 0] = "Pistolet szpiega";
+eq4[0, 1] = 8;
 eq4[0, 2] = 100;
 eq4[0, 3] = 0;
 eq4[0, 4] = 1;
 eq4[0, 5] = 2;
+
+eq4[1, 0] = "Pistolet szpiega";
+eq4[1, 1] = 8;
+eq4[1, 2] = 100;
+eq4[1, 3] = 0;
+eq4[1, 4] = 1;
+eq4[1, 5] = 2;
 
 eq4[2, 0] = "Kaptur szpiega";
 eq4[2, 1] = 21;
@@ -328,7 +342,8 @@ for(i = 0; i &lt; 7; i++)
 
 for(i = 0; i &lt; 24; i ++)
 {
-    temp = irandom(1);
+    inv[i, 1] = -1;
+    /*temp = irandom(1);
     if(temp == 1)
     {
         inv[i, 1] = choose(irandom(9), 21 + irandom(4));
@@ -442,7 +457,7 @@ for(i = 0; i &lt; 24; i ++)
     else
     {
         inv[i, 1] = -1;
-    }
+    }*/
 }
 
 for(i = 0; i &lt; 4; i++)
@@ -491,6 +506,11 @@ for(i = 0; i &lt; 25; i++)
     lvl ++;
     stats_to_spend += 3;
     xp_to_lvl = 100 + ((lvl - 1) * 50);
+    
+    with(Hero)
+    {
+        effect_create_above(ef_firework, x, y, 2, make_colour_rgb(255, 200, 0));
+    }
 }
 
 /*
@@ -570,27 +590,25 @@ if(check_eq)
             }
     }
     
-    if(eq1[0, 1] != 1 &amp;&amp; eq1[0, 1] != 2 &amp;&amp; eq1[0, 1] != 6 &amp;&amp; eq1[0, 1] != 7)
-    {
         switch(eq1[1, 1])
         {
             case 3:
-                action[0, 3] = i + 1 + 8;
-                action[0, 4] = i + 1 + 9;
+                action[0, 3] = 14;
+                action[0, 4] = 15;
+                break;
             case 4:
-                action[0, 3] = i + 1 + 18;
-                action[0, 4] = i + 1 + 19;
+                action[0, 3] = 19;
+                action[0, 4] = 20;
+                break;
             case 5:
-                action[0, 3] = i + 1 + 23;
-                action[0, 4] = i + 1 + 24;
+                action[0, 3] = 24;
+                action[0, 4] = 25;
+                break;
             case 8:
-                action[0, 3] = i + 1 + 38;
-                action[0, 4] = i + 1 + 39;
-            default:
-                action[0, 3] = -1;
-                action[0, 4] = -1;
+                action[0, 3] = 39;
+                action[0, 4] = 40;
+                break;
         }
-    }
     
     switch(eq2[0, 1])
     {
@@ -655,27 +673,27 @@ if(check_eq)
             }
     }
     
-    if(eq2[0, 1] != 1 &amp;&amp; eq2[0, 1] != 2 &amp;&amp; eq2[0, 1] != 6 &amp;&amp; eq2[0, 1] != 7)
-    {
+    
         switch(eq2[1, 1])
         {
             case 3:
-                action[1, 3] = i + 1 + 8;
-                action[1, 4] = i + 1 + 9;
+                action[1, 3] = 14;
+                action[1, 4] = 15;
+                break;
             case 4:
-                action[1, 3] = i + 1 + 18;
-                action[1, 4] = i + 1 + 19;
+                action[1, 3] = 19;
+                action[1, 4] = 20;
+                break;
             case 5:
-                action[1, 3] = i + 1 + 23;
-                action[1, 4] = i + 1 + 24;
+                action[1, 3] = 24;
+                action[1, 4] = 25;
+                break;
             case 8:
-                action[1, 3] = i + 1 + 38;
-                action[1, 4] = i + 1 + 39;
-            default:
-                action[1, 3] = -1;
-                action[1, 4] = -1;
+                action[1, 3] = 39;
+                action[1, 4] = 40;
+                break;
         }
-    }
+    
     
     switch(eq3[0, 1])
     {
@@ -740,27 +758,27 @@ if(check_eq)
             }
     }
     
-    if(eq3[0, 1] != 1 &amp;&amp; eq3[0, 1] != 2 &amp;&amp; eq3[0, 1] != 6 &amp;&amp; eq3[0, 1] != 7)
-    {
+
         switch(eq3[1, 1])
         {
             case 3:
-                action[2, 3] = i + 1 + 8;
-                action[2, 4] = i + 1 + 9;
+                action[2, 3] = 14;
+                action[2, 4] = 15;
+                break;
             case 4:
-                action[2, 3] = i + 1 + 18;
-                action[2, 4] = i + 1 + 19;
+                action[2, 3] = 19;
+                action[2, 4] = 20;
+                break;
             case 5:
-                action[2, 3] = i + 1 + 23;
-                action[2, 4] = i + 1 + 24;
+                action[2, 3] = 24;
+                action[2, 4] = 25;
+                break;
             case 8:
-                action[2, 3] = i + 1 + 38;
-                action[2, 4] = i + 1 + 39;
-            default:
-                action[2, 3] = -1;
-                action[2, 4] = -1;
+                action[2, 3] = 39;
+                action[2, 4] = 40;
+                break;
         }
-    }
+    
     
     switch(eq4[0, 1])
     {
@@ -825,27 +843,27 @@ if(check_eq)
             }
     }
     
-    if(eq4[0, 1] != 1 &amp;&amp; eq4[0, 1] != 2 &amp;&amp; eq4[0, 1] != 6 &amp;&amp; eq4[0, 1] != 7)
-    {
+
         switch(eq4[1, 1])
         {
             case 3:
-                action[3, 3] = i + 1 + 8;
-                action[3, 4] = i + 1 + 9;
+                action[3, 3] = 14;
+                action[3, 4] = 15;
+                break;
             case 4:
-                action[3, 3] = i + 1 + 18;
-                action[3, 4] = i + 1 + 19;
+                action[3, 3] = 19;
+                action[3, 4] = 20;
+                break;
             case 5:
-                action[3, 3] = i + 1 + 23;
-                action[3, 4] = i + 1 + 24;
+                action[3, 3] = 24;
+                action[3, 4] = 25;
+                break;
             case 8:
-                action[3, 3] = i + 1 + 38;
-                action[3, 4] = i + 1 + 39;
-            default:
-                action[3, 3] = -1;
-                action[3, 4] = -1;
+                action[3, 3] = 39;
+                action[3, 4] = 40;
+                break;
         }
-    }
+    
     
     //liczenie statystyk
     /*

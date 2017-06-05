@@ -29,7 +29,9 @@
 show_loot = false;
 lootpos = 0;
 
-for(i = 0; i &lt; 5; i++)
+lootAmount = 2 + irandom(5);
+
+for(i = 0; i &lt; lootAmount; i++)
 {
     loot[i, 1] = choose(irandom(9), 21 + irandom(4));;
     switch(loot[i, 1])
@@ -139,8 +141,6 @@ for(i = 0; i &lt; 5; i++)
                 loot[i, 0] = "Blad";
         }
 }
-
-lootAmount = array_height_2d(loot);
 
 for(i = 0; i &lt; lootAmount; i++)
 {
