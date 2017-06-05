@@ -77,6 +77,7 @@
       <sprite>sprites\sprBar</sprite>
       <sprite>sprites\sprResourceBar</sprite>
       <sprite>sprites\sprTracker</sprite>
+      <sprite>sprites\sprTraderIcon</sprite>
     </sprites>
     <sprite>sprites\sprHero</sprite>
     <sprite>sprites\sprEnemy</sprite>
@@ -112,6 +113,8 @@
     <sprite>sprites\sprWallWood</sprite>
     <sprite>sprites\sprWallMask</sprite>
     <sprite>sprites\sprChest</sprite>
+    <sprite>sprites\sprObelisk</sprite>
+    <sprite>sprites\sprRune</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\backGrassGreen</background>
@@ -139,6 +142,7 @@
     <object>objects\Enemy</object>
     <object>objects\EnemySpawner</object>
     <object>objects\Npc</object>
+    <object>objects\Trader</object>
     <object>objects\Tree</object>
     <object>objects\TreeShadow</object>
     <object>objects\GrassDrawer</object>
@@ -161,6 +165,7 @@
     <object>objects\BirdShadow</object>
     <object>objects\Door</object>
     <object>objects\WallWood</object>
+    <object>objects\ForgottenObelisk</object>
   </objects>
   <timelines name="timelines">
     <timeline>timelines\animRun</timeline>

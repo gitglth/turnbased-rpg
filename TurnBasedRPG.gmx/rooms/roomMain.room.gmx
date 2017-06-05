@@ -59,7 +59,7 @@
     <instance objName="Tree" x="1312" y="384" name="inst_6F9CFA5A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Tree" x="704" y="240" name="inst_8F490A3D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Tree" x="1120" y="64" name="inst_5E4D96E3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="EnemySpawner" x="736" y="416" name="inst_58D970D6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="EnemySpawner" x="1056" y="416" name="inst_58D970D6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Npc" x="544" y="608" name="inst_3001307B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Npc" x="160" y="544" name="inst_D9F7C47F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="Npc" x="320" y="672" name="inst_76CDBAED" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -68,6 +68,7 @@
     <instance objName="EnemySpawner" x="1888" y="864" name="inst_000FFBF6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="EnemySpawner" x="1536" y="1344" name="inst_B35A3CC6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="EnemySpawner" x="768" y="1136" name="inst_B2E8A972" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="ForgottenObelisk" x="352" y="384" name="inst_B79BA0D5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="" x="512" y="240" w="16" h="16" xo="0" yo="0" id="10000002" name="inst_98031627" depth="100000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

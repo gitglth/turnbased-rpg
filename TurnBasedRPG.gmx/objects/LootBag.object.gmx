@@ -257,7 +257,7 @@ if(lootAmount &gt; 0 &amp;&amp; show_loot)
                         if(lootpos &gt;= lootAmount) lootpos -= 3;
                         break;
                     }
-                    if(j == 23) room_restart();
+                    //if(j == 23) room_restart();
                 }
             }
         }
