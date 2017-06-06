@@ -30,7 +30,7 @@
 afterLoad = false;
 alarm[11] = 10;
 sprite_index = sprBlank;
-show_debug_overlay(true);
+//show_debug_overlay(true);
 
 hour = 12;
 minute = 0;
@@ -111,10 +111,10 @@ for(i = 0; i &lt; 4; i++)
     }
 }
 
-for(g = 0; g &lt;= room_height; g += 16)
+/*for(g = 0; g &lt;= room_height; g += 16)
 {
     instance_create(-24, g, GrassDrawer);
-}
+}*/
 
 for(i = 0; i &lt; 6; i++)
 {
@@ -274,16 +274,43 @@ depth = -y-10000;
 if(afterLoad)
 {
     instance_activate_all();
+    x = Camera.x;
+    y = Camera.y;
+    ShadowShader.x = x;
+    ShadowShader.y = y;
+    LightShader.x = x;
+    LightShader.y = y;
+    WaterShader.x = x;
+    WaterShader.y = y;
+    ActionCtrl.x = x;
+    ActionCtrl.y = y;
+    InvCtrl.x = x;
+    InvCtrl.y = y;
+    
+    /*with(EnemySpawner)
+    {
+        x_prev = x;
+        y_prev = y;
+        x = Ctrl.x;
+        y = Ctrl.y;
+    }*/
+    
     instance_deactivate_region(view_xview - 800, view_yview - 400, view_wview + 1600, view_hview + 800, false, true);
-    instance_activate_object(GrassDrawer);
-    instance_activate_object(ShadowShader);
-    instance_activate_object(LightShader);
-    instance_activate_object(WaterShader);
-    instance_activate_object(ActionCtrl);
+    
+    /*with(EnemySpawner)
+    {
+        x = x_prev;
+        y = y_prev;
+    }*/
+    
+    //instance_activate_object(ShadowShader);
+    //instance_activate_object(LightShader);
+    //instance_activate_object(WaterShader);
+    //instance_activate_object(ActionCtrl);
     instance_activate_object(Camera);
     instance_activate_object(Hero);
     instance_activate_object(MarkerMask);
-    instance_activate_object(InvCtrl);
+    //instance_activate_object(InvCtrl);
     instance_activate_object(DirWheel);
     instance_activate_object(EnemySpawner);
 }
@@ -795,7 +822,7 @@ ctrl_frame = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(c_black);
+            <string>/*draw_set_color(c_black);
 draw_set_alpha(0.5);
 draw_rectangle(0,0,128,64,false);
 draw_set_alpha(1);
@@ -805,7 +832,7 @@ draw_text(4,36,"CPU: " + string(cpu_usage()));
 draw_text(4,48,"RAM: " + string(ram_application()/1024/1024));
 
 draw_text(4,60,"Time: " + string_format(hour, 2, 0) + ":" + string_format(minute, 2, 0));
-
+*/
 if(mode==1)
 {
     for(q=0;q&lt;characters_inbattle;q++)
@@ -891,11 +918,14 @@ draw_set_valign(fa_top);
         if(current.battle==true)
         {
             if(current.myturn == turn) draw_sprite(sprIndicator,0,current.x,current.y-88+(8*sin(degtorad(i*2))));
-            draw_rectangle_colour(current.x-27,current.y-current.height-4,current.x+27,current.y-current.height+4,c_black,c_black,c_black,c_black,false);
-            draw_rectangle_colour(current.x-25,current.y-current.height-2,current.x+25,current.y-current.height+2,c_red,c_red,c_red,c_red,false);
-            if(current.hp &gt; 0)
+            if(!current.dead)
             {
-                draw_rectangle_colour(current.x-25,current.y-current.height-2,current.x-25+(50*current.hp/current.maxhp),current.y-current.height+2,green,green,green,green,false);
+                draw_rectangle_colour(current.x-27,current.y-current.height-4,current.x+27,current.y-current.height+4,c_black,c_black,c_black,c_black,false);
+                draw_rectangle_colour(current.x-25,current.y-current.height-2,current.x+25,current.y-current.height+2,c_red,c_red,c_red,c_red,false);
+                if(current.hp &gt; 0)
+                {
+                    draw_rectangle_colour(current.x-25,current.y-current.height-2,current.x-25+(50*current.hp/current.maxhp),current.y-current.height+2,green,green,green,green,false);
+                }
             }
         }
     }

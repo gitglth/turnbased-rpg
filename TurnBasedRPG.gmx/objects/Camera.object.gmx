@@ -26,6 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>camSpeed = 10;
+
+x = Hero.x;
+y = Hero.y;
 </string>
           </argument>
         </arguments>

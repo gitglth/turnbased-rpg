@@ -121,7 +121,18 @@ if(instance_position(mouse_x,mouse_y,self))
     else Ctrl.marker = 0;
 }
 
-if(instance_position(x,y,Hero) || instance_position(x,y,Enemy)) occupied = true;
+if(instance_position(x,y,Hero))
+{
+    if((instance_position(x,y,Hero)).dead == 0) occupied = true;
+    else occupied = false;
+}
+else occupied = false;
+
+if(instance_position(x,y,Enemy))
+{
+    if((instance_position(x,y,Enemy)).dead == 0) occupied = true;
+    else occupied = false;
+}
 else occupied = false;
 </string>
           </argument>

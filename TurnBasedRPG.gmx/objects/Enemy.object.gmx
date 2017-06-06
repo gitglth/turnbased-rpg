@@ -56,6 +56,7 @@ stage = 0;
 animation_alarm = -1;
 target = 0;
 image_scale = 1;
+model_dir = 0;
 
 action[0, 0] = 1;
 action[0, 1] = 120;
@@ -300,6 +301,8 @@ if(hpPrevious != hp)
     if(hp &lt;= 0)
     {
         dead = 1;
+        effect_create_above(ef_firework, x, y, 1, c_red);
+        image_alpha = 0.01;
     }
 }
 
@@ -1051,7 +1054,7 @@ if(ActionCtrl.action[Ctrl.actionid, 6])
     d3d_set_fog(false,c_white,0,0);
 }
 
-if(battle &amp;&amp; speed == 0) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 0, 96, 48, x - 48, y - 48);
+if(battle &amp;&amp; speed == 0 &amp;&amp; !dead) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 0, 96, 48, x - 48, y - 48);
 
 if(model_dir == 0)
 {
@@ -1112,7 +1115,7 @@ else if(model_dir == 2)
 
 //draw_sprite_ext(sprite_index,image_index,x,y,1,1,image_angle,make_colour_rgb(blend,blend,blend),image_alpha);
 
-if(battle &amp;&amp; speed == 0) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 48, 96, 48, x - 48, y);
+if(battle &amp;&amp; speed == 0 &amp;&amp; !dead) draw_sprite_part(sprDirIndicator, round(direction/60), 0, 48, 96, 48, x - 48, y);
 </string>
           </argument>
         </arguments>

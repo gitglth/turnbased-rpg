@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>active = true;
+gave_exp = false;
 randomize();
 
 enemy_count = 3 + irandom(3);
@@ -82,15 +83,34 @@ for(i = 0; i &lt; instance_number(Enemy); i++)
 
 if(!active)
 {
-    InvCtrl.xp += xp;
-    instance_create(x, y, LootBag);
-    
-    for(i = 0; i &lt; InvCtrl.quests; i++)
+    if(!gave_exp)
     {
-        if(InvCtrl.quest[i, 0] == id) InvCtrl.quest[i, 3] ++;
+        InvCtrl.xp += xp;
+        instance_create(x, y, LootBag);
+        
+        for(i = 0; i &lt; InvCtrl.quests; i++)
+        {
+            if(InvCtrl.quest[i, 0] == id) InvCtrl.quest[i, 3] ++;
+        }
+        gave_exp = true;
     }
-    
-    instance_destroy();
+    else
+    {
+        near = instance_nearest(x, y, Hero);
+        if(sqrt((near.x - x) * (near.x - x) + (near.y - y) * (near.y - y)) &gt; 1400)
+        {
+            instance_create(x, y, EnemySpawner);
+            for(i = 0; i &lt; instance_number(Enemy); i++)
+            {
+                e = instance_find(Enemy, i);
+                if(e.link == id)
+                {
+                    with(e) instance_destroy();
+                }
+            }
+            instance_destroy();
+        }
+    }
 }
 </string>
           </argument>
